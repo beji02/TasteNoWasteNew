@@ -15,7 +15,7 @@
         android:gravity="start"
 
         android:hint="@string/firstname_secondname"
-        android:inputType="textEmailAddress"
+        android:inputType="text"
         android:paddingLeft="0dp"
         android:paddingTop="10dp"
 
@@ -38,9 +38,9 @@
         android:layout_marginStart="90dp"
 
 
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="125dp"
         android:layout_marginEnd="250dp"
-        android:layout_marginBottom="450dp"
+        android:layout_marginBottom="475dp"
 
         android:fontFamily="@font/fredericka_the_great"
         android:text="@string/full_name"
@@ -52,7 +52,46 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.22" />
+
+    <EditText
+        android:id="@+id/etRegisterPhoneNumber"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:gravity="start"
+
+        android:hint="@string/_0749159835"
+        android:inputType="phone"
+        android:paddingLeft="0dp"
+        android:paddingTop="10dp"
+
+        android:paddingRight="0dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+
+        android:textSize="15sp"
+
+        app:layout_constraintStart_toStartOf="@+id/tvRegisterPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/tvRegisterPhoneNumber"
+        app:layout_constraintWidth_percent=".8"
+        android:importantForAutofill="no" />
+
+    <TextView
+        android:id="@+id/tvRegisterPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="@string/phone_number"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+
+        app:layout_constraintStart_toStartOf="@+id/etRegisterFullName"
+        app:layout_constraintTop_toBottomOf="@+id/etRegisterFullName"
+        app:layout_constraintWidth_percent=".8" />
 
     <EditText
         android:id="@+id/etRegisterEmail"
@@ -90,8 +129,8 @@
         android:textColor="@color/white"
         android:textSize="18sp"
 
-        app:layout_constraintStart_toStartOf="@+id/etRegisterFullName"
-        app:layout_constraintTop_toBottomOf="@+id/etRegisterFullName"
+        app:layout_constraintStart_toStartOf="@+id/etRegisterPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/etRegisterPhoneNumber"
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
@@ -179,11 +218,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="100dp"
         android:backgroundTint="#808080"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="@string/sign_in"
+        android:text="continue"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

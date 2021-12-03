@@ -1,8 +1,7 @@
 package com.example.usermobile.Authentication.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -12,69 +11,55 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.usermobile.MainActivity;
 import com.example.usermobile.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private TextView goToRegister;
-    private TextView goToForgotPassword;
-
     private EditText etEmail;
     private EditText etPassword;
-
-    private Button btnSignIn;
 
     private ProgressBar progressBar;
 
     private FirebaseAuth loginAuthentication;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        goToRegister       = (TextView) findViewById(R.id.tvLoginRegister);
-        goToForgotPassword = (TextView) findViewById(R.id.tvLoginForgotPassword);
-        btnSignIn          = (Button) findViewById(R.id.btnLoginSignIn);
-        etEmail            = (EditText) findViewById(R.id.etLoginEmail);
-        etPassword         = (EditText) findViewById(R.id.etLoginPassword);
-        progressBar        = (ProgressBar) findViewById(R.id.progressBar);
+        TextView goToRegister = findViewById(R.id.tvLoginRegister);
+        TextView goToForgotPassword = findViewById(R.id.tvLoginForgotPassword);
+        Button btnSignIn = findViewById(R.id.btnLoginSignIn);
+        etEmail            = findViewById(R.id.etLoginEmail);
+        etPassword         = findViewById(R.id.etLoginPassword);
+        progressBar        = findViewById(R.id.progressBar);
 
-        /**
-         * Checking if the user is already signed into the app
-         */
         loginAuthentication = FirebaseAuth.getInstance();
 
-        if(loginAuthentication != null) {
-            FirebaseUser currentUser = loginAuthentication.getCurrentUser();
-            if(currentUser != null) {
-                //startActivity(new Intent(this, MainActivity.class));
-            }
-        }
+        FirebaseUser currentUser = loginAuthentication.getCurrentUser();
+//        if(currentUser != null) {
+//            startActivity(new Intent(this, MainActivity.class));
+//        }
 
-        /**
-         * Redirecting the user depending on the button they press
-         */
-        goToRegister      .setOnClickListener(this);
+        goToRegister.setOnClickListener(this);
         goToForgotPassword.setOnClickListener(this);
-        btnSignIn         .setOnClickListener(this);
+        btnSignIn.setOnClickListener(this);
     }
 
     /**
      * Choosing which part to start
-     * @param view
+     * @param view the current view
      */
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.tvLoginRegister:
-                // open new window
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.tvLoginForgotPassword:
                 // open new window
@@ -90,22 +75,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void userLogin() {
 
-        /**
-         * Get user input data and check for null fields
-         */
         String email    = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
 
-        /**
-         * Check if the input is in the correct format
-         */
-        if(assertInputCorrectness(email, password) == false) {
+        if(!assertInputCorrectness(email, password)) {
             return;
         }
 
-        /**
-         * Check the user credentials and redirect to the main page
-         */
         authenticateUser(email, password);
     }
 
@@ -153,27 +129,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBar.setVisibility(View.VISIBLE);
 
-        loginAuthentication.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        loginAuthentication.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
-                    FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
 
-                    if(user.isEmailVerified()) {
-                        //redirect to user profile
-                        //startActivity(new Intent(loginScreen.this, MainActivity.class));
-                    }
-                    else {
-                        user.sendEmailVerification();
-                        Toast.makeText(LoginActivity.this, "Check your email to verify your account",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Toast.makeText(LoginActivity.this, "Failed to login! Please check your credentials",
+                assert user != null;
+                if(user.isEmailVerified()) {
+                    //redirect to user profile
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
+                else {
+                    user.sendEmailVerification();
+                    Toast.makeText(LoginActivity.this, "Check your email to verify your account",
                             Toast.LENGTH_SHORT).show();
                 }
+
+            } else {
+                Toast.makeText(LoginActivity.this, "Failed to login! Please check your credentials",
+                        Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
