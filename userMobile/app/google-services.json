@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "504907082584",
+    "firebase_url": "https://tastenowaste-59b51-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "tastenowaste-59b51",
+    "storage_bucket": "tastenowaste-59b51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:504907082584:android:51096b979647502455d32d",
+        "android_client_info": {
+          "package_name": "com.example.usermobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "504907082584-m6msedm8r1j4j7f6n5m0n0b9077cjr1m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.usermobile",
+            "certificate_hash": "5ab8a641d97518ee405e9090f68b07f8185946cb"
+          }
+        },
+        {
+          "client_id": "504907082584-arrr4daa3c4l88hqms3g7v4smamqdt77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf_9eoDo6-3AGySn_QdeVv-MmtXhutZXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "504907082584-arrr4daa3c4l88hqms3g7v4smamqdt77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

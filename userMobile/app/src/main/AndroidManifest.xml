@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UserMobile">
         <activity
-            android:name=".MainActivity"
+            android:name=".Authentication.Activities.AdditionalDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.Activities.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Authentication.Activities.LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.UserMobile.NoActionBar">
@@ -20,6 +26,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.UserMobile.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
