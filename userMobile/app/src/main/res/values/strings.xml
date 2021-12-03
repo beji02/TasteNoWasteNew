@@ -10,16 +10,12 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="full_name">Full name:</string>
-    <string name="email">Email:</string>
     <string name="passwordHint">******</string>
     <string name="password">Password:</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
-    <string name="sign_in">Sign in</string>
-    <string name="someone_email_com">someone@email.com</string>
     <string name="someone_email_com">someone@email.com</string>
     <string name="email">Email:</string>
-    <string name="password">Password:</string>
     <string name="confirm_password">Confirm Password:</string>
     <string name="sign_in">Sign in</string>
     <string name="firstname_secondname">FirstName SecondName</string>

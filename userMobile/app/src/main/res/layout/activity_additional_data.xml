@@ -4,6 +4,222 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Authentication.Activities.AdditionalDataActivity">
+    tools:context=".Authentication.Activities.AdditionalDataActivity"
+    android:background="@drawable/background">
+
+
+    <Button
+        android:id="@+id/btnAdditionalDataSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="#808080"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="skip"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdditionalDataSave"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/btnAdditionalDataSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#808080"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="save"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAdditionalDataSkip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnAdditionalDataSkip"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/etAdditionalDataZipcode"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:fontFamily="@font/fredericka_the_great"
+        android:gravity="start"
+
+        android:hint="33030"
+        android:importantForAutofill="no"
+
+
+        android:inputType="textPassword"
+        android:paddingLeft="1dp"
+        android:paddingTop="10dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvAdditionalDataZipcode"
+        app:layout_constraintTop_toBottomOf="@+id/tvAdditionalDataZipcode" />
+
+    <EditText
+        android:id="@+id/etAdditionalDataCounty"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:fontFamily="@font/fredericka_the_great"
+
+        android:gravity="start"
+        android:hint="Timis"
+
+
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingLeft="1dp"
+        android:paddingTop="10dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvAdditionalDataCounty"
+        app:layout_constraintTop_toBottomOf="@+id/tvAdditionalDataCounty" />
+
+    <EditText
+        android:id="@+id/etAdditionalDataCountry"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:fontFamily="@font/fredericka_the_great"
+        android:gravity="start"
+
+
+        android:hint="Romania"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:paddingLeft="1dp"
+        android:paddingTop="10dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvAdditionalDataCountry"
+        app:layout_constraintTop_toBottomOf="@+id/tvAdditionalDataCountry" />
+
+    <EditText
+        android:id="@+id/etAdditionalDataAddress"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:fontFamily="@font/fredericka_the_great"
+        android:gravity="start"
+        android:hint="street, house no, app no"
+        android:importantForAutofill="no"
+
+        android:inputType="textPassword"
+        android:paddingLeft="1dp"
+
+
+        android:paddingTop="10dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvAdditionalDataAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvAdditionalDataAddress" />
+
+    <EditText
+        android:id="@+id/etAdditionalDataCity"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+
+        android:fontFamily="@font/fredericka_the_great"
+        android:gravity="start"
+
+        android:hint="Timisoara"
+        android:importantForAutofill="no"
+
+
+        android:inputType="textPassword"
+        android:paddingLeft="1dp"
+        android:paddingTop="10dp"
+        android:paddingRight="1dp"
+        android:paddingBottom="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tvAdditionalDataCity"
+        app:layout_constraintTop_toBottomOf="@+id/tvAdditionalDataCity" />
+
+    <TextView
+        android:id="@+id/tvAdditionalDataCountry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="145dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="Country"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvAdditionalDataAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="Address"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etAdditionalDataCity"
+        app:layout_constraintTop_toBottomOf="@+id/etAdditionalDataCity" />
+
+    <TextView
+        android:id="@+id/tvAdditionalDataCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="City"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etAdditionalDataCounty"
+        app:layout_constraintTop_toBottomOf="@+id/etAdditionalDataCounty" />
+
+    <TextView
+        android:id="@+id/tvAdditionalDataZipcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="Zipcode"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etAdditionalDataAddress"
+        app:layout_constraintTop_toBottomOf="@+id/etAdditionalDataAddress" />
+
+    <TextView
+        android:id="@+id/tvAdditionalDataCounty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="County"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/etAdditionalDataCountry"
+        app:layout_constraintTop_toBottomOf="@+id/etAdditionalDataCountry" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
