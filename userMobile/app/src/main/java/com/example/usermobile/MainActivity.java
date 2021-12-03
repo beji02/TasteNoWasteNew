@@ -2,6 +2,8 @@ package com.example.usermobile;
 
 import android.os.Bundle;
 
+import com.example.usermobile.Notification.CustomNotification;
+import com.example.usermobile.Notification.CustomNotificationManager;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.example.usermobile.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        //cod de test Bejan
+        //afiseaza o notificare dupa 10 secunde de la rulare
+        CustomNotificationManager myNotificationManager = new CustomNotificationManager(this);
+        long time = System.currentTimeMillis();
+        CustomNotification myNotification = new CustomNotification("heiRadu", "cmf raducule", time + 1000*10*6);
+        myNotificationManager.sendNotification(myNotification);
+        Toast.makeText(this,"Notification Set!", Toast.LENGTH_SHORT).show();
+        //////////////////////
+
+
+
+
+
+
+
+
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
