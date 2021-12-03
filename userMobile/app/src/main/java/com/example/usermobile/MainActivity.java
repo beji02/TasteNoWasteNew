@@ -1,7 +1,9 @@
 package com.example.usermobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.usermobile.Storage.StorageListView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        startActivity(new Intent(MainActivity.this, StorageListView.class));
     }
 
     @Override
