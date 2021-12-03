@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.usermobile.R;
 
-public class AdditionalDataActivity extends AppCompatActivity implements View.OnClickListener{
+public class AdditionalDataActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,10 +13,12 @@
     <string name="passwordHint">******</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
+<<<<<<< HEAD
     <string name="sign_in">Sign in</string>
+=======
+>>>>>>> 1d52ea4d414032b96686cd72b3f16a38cd7e24e7
     <string name="someone_email_com">someone@email.com</string>
     <string name="email">Email:</string>
-    <string name="password">Password:</string>
     <string name="confirm_password">Confirm Password:</string>
     <string name="firstname_secondname">FirstName SecondName</string>
     <string name="_0749159835">0749159835</string>
