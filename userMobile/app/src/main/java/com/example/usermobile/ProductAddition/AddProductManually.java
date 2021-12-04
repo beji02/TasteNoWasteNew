@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -119,9 +118,17 @@ public class AddProductManually extends AppCompatActivity {
     void sendToDatabase() {
         productName = etNume.getText().toString();
         int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
-        //
-        // productExpirationDate = dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
-        productExpirationDate = dpExpirationDate.getYear() + "-" + (dpExpirationDate.getMonth() + 1) + "-" + dpExpirationDate.getDayOfMonth();
+        String productExpirationDate = dpExpirationDate.getYear() + "-";
+        if ((dpExpirationDate.getMonth() + 1) < 10) {
+            productExpirationDate += "0" + (dpExpirationDate.getMonth() + 1);
+        } else {
+            productExpirationDate += (dpExpirationDate.getMonth() + 1);
+        }
+        if ((dpExpirationDate.getDayOfMonth() < 10)) {
+            productExpirationDate += "-0" + dpExpirationDate.getDayOfMonth();
+        } else {
+            productExpirationDate += "-" + dpExpirationDate.getDayOfMonth();
+        }
 
         Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();

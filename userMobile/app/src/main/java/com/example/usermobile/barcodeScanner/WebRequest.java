@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 
 public class WebRequest extends AppCompatActivity {
 
@@ -67,7 +66,7 @@ public class WebRequest extends AppCompatActivity {
             }
         }
 
-        return new Product("", 0, LocalDate.now().toString(), "", "", "");
+        return new Product("", 0, "", "", "", "");
     }
 
     // take data from json array element, based on id
@@ -96,7 +95,7 @@ public class WebRequest extends AppCompatActivity {
         reader.endObject();
         Product product = new Product(productName,
                 Integer.parseInt(quantity),
-                LocalDate.now().toString(),
+                "",
                 StringUtils.capitalize(categories[0].replace('-', ' ')),
                 packages[0],
                 productImageUrl);
