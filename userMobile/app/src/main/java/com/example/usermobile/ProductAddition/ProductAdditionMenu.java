@@ -22,6 +22,17 @@ public class ProductAdditionMenu extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setSelectedItemId(R.id.productAdditionMenu);
 
+
+        // 2 butoane care duc la alte 2 activitati
+        // una a lu madalin
+        // cealalta manuala sa trimita info
+        // storage = lista de produse
+        //
+
+
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
