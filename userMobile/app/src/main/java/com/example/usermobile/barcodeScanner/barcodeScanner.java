@@ -16,12 +16,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -38,6 +40,7 @@ public class barcodeScanner extends AppCompatActivity {
     private Product jsonProduct;
     private DatePicker datePicker;
     private Button cancelBtn, okBtn, manualBtn;
+    private DatabaseStorageManager databaseStorageManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,9 @@ public class barcodeScanner extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_scanner);
+
+        databaseStorageManager = new DatabaseStorageManager(this);
+
         surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
         barcodeText.setVisibility(View.GONE);
@@ -167,14 +173,16 @@ public class barcodeScanner extends AppCompatActivity {
 
     void sendToDatabase() {
         // add jsonProduct to database
-        Toast.makeText(getApplicationContext(),
-                jsonProduct.getName() + "\n" +
-                        jsonProduct.getQuantity() + "\n" +
-                        jsonProduct.getExpirationDate() + "\n" +
-                        jsonProduct.getCategory() + "\n" +
-                        jsonProduct.getPackages() + "\n" +
-                        jsonProduct.getPhotoLink(), Toast.LENGTH_LONG).show(
-        );
+//        Toast.makeText(getApplicationContext(),
+//                jsonProduct.getName() + "\n" +
+//                        jsonProduct.getQuantity() + "\n" +
+//                        jsonProduct.getExpirationDate() + "\n" +
+//                        jsonProduct.getCategory() + "\n" +
+//                        jsonProduct.getPackages() + "\n" +
+//                        jsonProduct.getPhotoLink(), Toast.LENGTH_LONG).show(
+//        );
+        String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        databaseStorageManager.addProduct(userID, jsonProduct);
     }
 
     @Override
