@@ -26,12 +26,9 @@ public class AddProductManually extends AppCompatActivity {
             O clasa Product cu atributele (Id, Nume, Quantity, expirationDate, ambalaje cu dropdown, categorii cu dropdown)
             StorageDatabase - clasa care se ocupa cu store User's Storage in firebase database:
                 functions: storeProduct(idUser, Product), deleteProduct(idUser, idProduct)
-
-
          */
-    //private TextView tvNume, tvQuantity, tvExpirationDate, tvPackage, tvCategory;
+
     String[] itemsPackage = {"Paper", "Glass", "Plastic", "Cardboard", "Metal", "Unknown"};
-    //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
     String[] itemsCategory = {
             "Snacks",
             "Beverages",
@@ -46,7 +43,8 @@ public class AddProductManually extends AppCompatActivity {
             "Condiments",
             "Fishes",
             "Wines",
-            "Pastas"};
+            "Pastas",
+            "Unknown"};
     String productName;
     String productPackage;
     String productCategory;
@@ -62,7 +60,6 @@ public class AddProductManually extends AppCompatActivity {
     private DatePicker dpExpirationDate;
     private ListView lvPackage, lvCategory;
     private Button bAdd, bCancel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +90,6 @@ public class AddProductManually extends AppCompatActivity {
             }
         });
 
-
         etNume = findViewById(R.id.etProductName);
         etQuantity = findViewById(R.id.etQuantity);
         dpExpirationDate = findViewById(R.id.datePicker2);
@@ -115,7 +111,6 @@ public class AddProductManually extends AppCompatActivity {
             }
         });
     }
-
 
     void sendToDatabase() {
         productName = etNume.getText().toString();

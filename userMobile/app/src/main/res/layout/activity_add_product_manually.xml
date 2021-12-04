@@ -93,19 +93,21 @@
         app:layout_constraintStart_toStartOf="@+id/etQuantity"
         app:layout_constraintTop_toBottomOf="@+id/etQuantity" />
 
+
     <DatePicker
         android:id="@+id/datePicker2"
+        android:theme="@style/datePickerStyle"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
-        android:calendarTextColor="@color/white"
         android:layout_marginStart="20dp"
+        android:calendarTextColor="@color/white"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="@+id/etQuantity"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/tvExpirationDate2"
         app:layout_constraintTop_toBottomOf="@+id/tvExpirationDate2" />
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lvPackage"
@@ -123,7 +125,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
-            android:text="Select product pakage">
+            android:text="Select product package"
+            android:fontFamily="@font/fredericka_the_great"
+            android:textColor="@color/white">
         </AutoCompleteTextView>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="none"
+            android:fontFamily="@font/fredericka_the_great"
+            android:textColor="@color/white"
             android:text="Select product category">
         </AutoCompleteTextView>
     </com.google.android.material.textfield.TextInputLayout>
