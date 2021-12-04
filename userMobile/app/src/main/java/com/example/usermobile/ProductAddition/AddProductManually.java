@@ -13,10 +13,16 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
+import com.example.usermobile.Notification.CustomNotification;
+import com.example.usermobile.Notification.CustomNotificationManager;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class AddProductManually extends AppCompatActivity {
@@ -51,6 +57,9 @@ public class AddProductManually extends AppCompatActivity {
 
     DatabaseStorageManager databaseStorageManager;
 
+    private CustomNotificationManager customNotificationManager;
+
+
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> arrayAdapter;
     AutoCompleteTextView autoCompleteTextView2;
@@ -66,7 +75,9 @@ public class AddProductManually extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_manually);
 
+
         databaseStorageManager = new DatabaseStorageManager(this);
+        customNotificationManager = new CustomNotificationManager(this);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item_b, itemsPackage);
@@ -140,6 +151,27 @@ public class AddProductManually extends AppCompatActivity {
 
         databaseStorageManager.addProduct(userID, product);
         // add product to database
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(product.getExpirationDate());
+            Calendar rightNow = Calendar.getInstance();
+
+            date.setHours(rightNow.get(Calendar.HOUR_OF_DAY));
+            date.setMinutes(rightNow.get(Calendar.MINUTE));
+            date.setSeconds(rightNow.get(Calendar.SECOND));
+
+            long time = date.getTime() + 10*1000;
+            //long time = System.currentTimeMillis() + 10 * 1000;
+
+            //Toast.makeText(this, jsonProduct.getName(), Toast.LENGTH_SHORT).show();
+            CustomNotification customNotification =
+                    new CustomNotification("Produs expirat", product.getName() + " expira azi.", time);
+            //Toast.makeText(this, Integer.toString(customNotification.id), Toast.LENGTH_SHORT).show();
+            customNotificationManager.sendNotification(customNotification);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

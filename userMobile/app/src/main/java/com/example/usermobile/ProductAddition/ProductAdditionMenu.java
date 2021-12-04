@@ -19,8 +19,8 @@ public class ProductAdditionMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_addition_menu);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        bottomNavigationView.setSelectedItemId(R.id.productAdditionMenu);
+        //BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+       // bottomNavigationView.setSelectedItemId(R.id.productAdditionMenu);
 
 
         // 2 butoane care duc la alte 2 activitati
@@ -33,23 +33,23 @@ public class ProductAdditionMenu extends AppCompatActivity {
 
 
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.storageListView:
-                        startActivity(new Intent(getApplicationContext(), StorageListView.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.settingsMenu:
-                        startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.productAdditionMenu:
-                        return true;
-                }
-                return true;
-            }
-        });
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()){
+//                    case R.id.storageListView:
+//                        startActivity(new Intent(getApplicationContext(), StorageListView.class));
+//                        overridePendingTransition(0, 0);
+//                        return true;
+//                    case R.id.settingsMenu:
+//                        startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
+//                        overridePendingTransition(0, 0);
+//                        return true;
+//                    case R.id.productAdditionMenu:
+//                        return true;
+//                }
+//                return true;
+//            }
+//        });
     }
 }
