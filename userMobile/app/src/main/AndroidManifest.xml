@@ -28,6 +28,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Settings.SettingsMenu"
+            android:exported="false"
+            android:label="@string/title_activity_settings_menu" />
+        <activity
+            android:name=".ProductAddition.ProductAdditionMenu"
+            android:exported="false" />
+        <activity
+            android:name=".Storage.StorageListView"
+            android:exported="false"
+            android:label="@string/title_activity_storage_list_view"
+            android:theme="@style/Theme.UserMobile.NoActionBar" />
+
+        <activity
             android:name=".Authentication.Activities.ForgotPasswordActivity"
             android:exported="false" />
         <activity

@@ -16,10 +16,17 @@ import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
 import com.example.usermobile.Settings.SettingsMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
 
 public class StorageListView extends AppCompatActivity {
@@ -78,18 +85,33 @@ public class StorageListView extends AppCompatActivity {
     private void populateProductList () {
         productStorage = new Storage();
 
-        productStorage.addProduct(new Product("Tomato", 300, "2021-12-03", "vegetable",
-                new String[] {"da", "nu"}));
-        productStorage.addProduct(new Product("Apple", 100, "2021-11-03", "fruit",
-                new String[] {"da", "nu"}));
-        productStorage.addProduct(new Product("Meat", 300, "2021-09-03", "meat",
-                new String[] {"da", "nu"}));
-        productStorage.addProduct(new Product("Meat", 300, "2022-01-03", "meat",
-                new String[] {"da", "nu"}));
-        productStorage.addProduct(new Product("Meat", 300, "2021-12-29", "meat",
-                new String[] {"da", "nu"}));
-        productStorage.addProduct(new Product("Meat", 300, "2022-10-03", "meat",
-                new String[] {"da", "nu"}));
+
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                      productStorage.clearProducts();
+                      for (DataSnapshot product : snapshot.getChildren()) {
+                          Product currProduct = product.getValue(Product.class);
+                          currProduct.setIdCode(product.getKey());
+                          productStorage.addProduct(currProduct);
+                      }
+                      productList = productStorage.getProductList();
+                      updateProductStorage(productStorage);
+                      storageListAdapter.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .child("Storage").addValueEventListener(valueEventListener);
+
         productList = productStorage.getProductList();
         sortProductListAscending();
     }
@@ -113,8 +135,10 @@ public class StorageListView extends AppCompatActivity {
 
     /** Deletes the product from the list and updates the listview. */
     public void deleteProduct (Product product) {
-        productStorage.deleteProduct(product);
-        storageListAdapter.remove(product);
-        Toast.makeText(this, "Product succesfully deleted", Toast.LENGTH_SHORT).show();
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
+                .child("Storage").child(product.getIdCode()).removeValue();
+
+        Toast.makeText(this, "Product successfully deleted", Toast.LENGTH_SHORT).show();
     }
 }
