@@ -9,7 +9,6 @@ import android.os.StrictMode;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -104,7 +103,7 @@ public class barcodeScanner extends AppCompatActivity {
 //                            toast.show();
                             cameraSource.stop();
                             barcodeText.setText(barcodeData);
-                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+//                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         } else {
                             barcodeData = barcodes.valueAt(0).displayValue;
                             webRequest = new WebRequest();
@@ -113,7 +112,7 @@ public class barcodeScanner extends AppCompatActivity {
 //                            toast.show();
                             cameraSource.stop();
                             barcodeText.setText(barcodeData);
-                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+//                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         }
                     });
                 }
