@@ -110,7 +110,7 @@ public class WebRequest extends AppCompatActivity {
                 packages = reader.nextString();
             } else if (name.equals("product_name")) {
                 productName = reader.nextString();
-            } else if (name.equals("quantity")) {
+            } else if (name.equals("product_quantity")) {
                 quantity = reader.nextString();
             } else {
                 reader.skipValue();
