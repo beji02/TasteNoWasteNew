@@ -65,7 +65,7 @@ public class WebRequest extends AppCompatActivity {
             }
         }
 
-        return new Product("", 0, "", "", new String[0], "");
+        return new Product("", 0, LocalDate.now().toString(), "", "", "");
     }
 
     // take data from json array element, based on id
@@ -92,7 +92,7 @@ public class WebRequest extends AppCompatActivity {
             }
         }
         reader.endObject();
-        Product product = new Product(productName, Integer.parseInt(quantity), LocalDate.now().toString(), category, packages, productImageUrl);
+        Product product = new Product(productName, Integer.parseInt(quantity), LocalDate.now().toString(), category, packages[0], productImageUrl);
         return product;
     }
 }

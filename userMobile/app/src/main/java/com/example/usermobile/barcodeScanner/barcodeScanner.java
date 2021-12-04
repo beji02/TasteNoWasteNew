@@ -24,7 +24,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class barcodeScanner extends AppCompatActivity {
@@ -135,7 +134,7 @@ public class barcodeScanner extends AppCompatActivity {
                                 datePicker.setVisibility(View.VISIBLE);
 
                                 String expiryDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
-                                jsonProduct.setExpirationDate(LocalDate.parse(expiryDate));
+                                jsonProduct.setExpirationDate(expiryDate);
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }
@@ -153,7 +152,7 @@ public class barcodeScanner extends AppCompatActivity {
                                 datePicker.setVisibility(View.VISIBLE);
 
                                 String expiryDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
-                                jsonProduct.setExpirationDate(LocalDate.parse(expiryDate));
+                                jsonProduct.setExpirationDate(expiryDate);
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }
