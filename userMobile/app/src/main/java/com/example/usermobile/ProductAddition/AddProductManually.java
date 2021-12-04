@@ -30,7 +30,7 @@ public class AddProductManually extends AppCompatActivity {
 
          */
     //private TextView tvNume, tvQuantity, tvExpirationDate, tvPackage, tvCategory;
-    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Carton", "Metal", "Unknown"};
+    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Cardboard", "Metal", "Unknown"};
     //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
     String[] itemsCategory = {
             "Snacks",
