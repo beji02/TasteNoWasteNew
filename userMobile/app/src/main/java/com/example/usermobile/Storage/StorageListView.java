@@ -72,7 +72,7 @@ public class StorageListView extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.productAdditionMenu:
+                    case R.id.barcodeScanner_nav:
                         startActivity(new Intent(getApplicationContext(), barcodeScanner.class));
                         overridePendingTransition(0, 0);
                         return true;

@@ -1,121 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/barcodeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#6A000000">
+    tools:context=".MainActivity">
 
     <SurfaceView
         android:id="@+id/surface_view"
         android:layout_width="360dp"
         android:layout_height="300dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/refs"
-        android:clipToOutline="true" />
+        android:clipToOutline="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/expiry_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/surface_view"
-        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:padding="5dp"
         android:text="Please select expiry date"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="20sp"
-        android:textColor="@color/white" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <DatePicker
         android:id="@+id/datePicker"
-        android:layout_width="360dp"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_below="@+id/expiry_date"
         android:layout_centerInParent="true"
+        android:layout_marginTop="52dp"
         android:calendarViewShown="false"
-        android:datePickerMode="spinner" />
+        android:datePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="@+id/surface_view"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/surface_view"
+        app:layout_constraintTop_toTopOf="@+id/surface_view" />
 
     <TextView
         android:id="@+id/selected_Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/datePicker"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
-        android:textStyle="bold"
-        android:textSize="18dp"/>
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/manual_bar"
-        android:orientation="horizontal"
-        android:paddingLeft="4.0dip"
-        android:paddingTop="5.0dip"
-        android:paddingRight="4.0dip"
-        android:paddingBottom="1.0dip"
-        android:layout_width="360dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/selected_Date">
-
-        <Button
-            android:id="@+id/manualBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:layout_marginLeft="80dp"
-            android:layout_marginRight="80dp"
-            android:layout_below="@+id/datePicker"
-            android:text="Manual add" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttons_bar"
-        android:orientation="horizontal"
-        android:paddingLeft="4.0dip"
-        android:paddingTop="5.0dip"
-        android:paddingRight="4.0dip"
-        android:paddingBottom="1.0dip"
-        android:layout_width="360dp"
-        android:layout_marginTop="20dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/manual_bar">
-
-        <Button
-            android:id="@+id/cancelBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:layout_marginRight="50dp"
-            android:layout_below="@+id/datePicker"
-            android:text="Cancel" />
-
-        <Button
-            android:id="@+id/okBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:layout_below="@+id/datePicker"
-            android:text="Ok" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/barcode_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttons_bar"
-        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
-        android:padding="5dp"
         android:text="Scan something..."
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="30sp"
-        android:textColor="@color/white" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?android:attr/windowBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/bottom_navigation" />
+
+    <Button
+        android:id="@+id/manualBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1.0"
+        android:text="Manual add"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintEnd_toStartOf="@+id/okBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/okBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation_view"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1.0"
+        android:text="Store Product"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/manualBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
