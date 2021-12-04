@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -38,7 +37,7 @@ class GPSTracker extends Service implements LocationListener {
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
 
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
 
     // Declaring a Location Manager
     protected LocationManager locationManager;
@@ -48,7 +47,7 @@ class GPSTracker extends Service implements LocationListener {
         getLocation();
     }
 
-    public Location getLocation() {
+    public void getLocation() {
         try {
             locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
@@ -59,9 +58,7 @@ class GPSTracker extends Service implements LocationListener {
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                // no network provider is enabled
-            } else {
+            if (isGPSEnabled || isNetworkEnabled) {
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (isNetworkEnabled) {
@@ -116,7 +113,6 @@ class GPSTracker extends Service implements LocationListener {
             e.printStackTrace();
         }
 
-        return location;
     }
 
     /**
@@ -167,7 +163,7 @@ class GPSTracker extends Service implements LocationListener {
 
     /**
      * Function to show settings alert dialog
-     * On pressing Settings button will lauch Settings Options
+     * On pressing Settings button will launch Settings Options
      * */
 
     public void showSettingsAlert(){
@@ -180,19 +176,13 @@ class GPSTracker extends Service implements LocationListener {
         alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
 
         // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-            }
+        alertDialog.setPositiveButton("Settings", (dialog, which) -> {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            mContext.startActivity(intent);
         });
 
         // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        alertDialog.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
         alertDialog.show();
     }
 

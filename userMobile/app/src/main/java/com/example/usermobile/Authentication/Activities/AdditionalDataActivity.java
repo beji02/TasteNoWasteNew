@@ -1,12 +1,8 @@
 package com.example.usermobile.Authentication.Activities;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,8 +30,6 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
     private EditText etAdditionalDataCity;
     private EditText etAdditionalDataAddress;
     private EditText etAdditionalDataZipcode;
-
-    private GPSTracker gpsTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,7 +120,7 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
     }
 
     public Location getLocation(){
-        gpsTracker = new GPSTracker(AdditionalDataActivity.this);
+        GPSTracker gpsTracker = new GPSTracker(AdditionalDataActivity.this);
         if(gpsTracker.canGetLocation()){
             double latitude = gpsTracker.getLatitude();
             double longitude = gpsTracker.getLongitude();
@@ -134,6 +128,7 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
         }else{
             gpsTracker.showSettingsAlert();
         }
+        gpsTracker.stopUsingGPS();
         return new Location(45, 45);
     }
 

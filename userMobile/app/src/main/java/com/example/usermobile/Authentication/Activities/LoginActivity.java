@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         loginAuthentication = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = loginAuthentication.getCurrentUser();
-        if(currentUser != null && currentUser.isEmailVerified() == true) {
+        if(currentUser != null && currentUser.isEmailVerified()) {
             startActivity(new Intent(this, MainActivity.class));
         }
 

@@ -74,7 +74,7 @@ public class ProductDialog extends DialogFragment {
         viewHolder.txtDate.setText("Expiration date: " + product.getExpirationDate().toString());
         viewHolder.txtQuantity.setText("Quantity: " + Integer.toString(product.getQuantity()));
 
-        long dateDifference = ChronoUnit.DAYS.between(LocalDate.now(), product.getExpirationDate());
+        long dateDifference = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(product.getExpirationDate()));
         if (dateDifference < 0) {
             viewHolder.txtDate.setTextColor(Color.parseColor("#FF0000"));
             viewHolder.txtDate.setText("Expired on " + product.getExpirationDate().toString() + " .");
