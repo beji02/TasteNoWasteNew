@@ -1,8 +1,5 @@
 package com.example.usermobile.Authentication.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -12,13 +9,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.usermobile.Authentication.Util.User;
 import com.example.usermobile.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Objects;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -27,8 +25,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText etUserPhoneNumber;
     private EditText etUserPassword;
     private EditText etUserConfirmPassword;
-
-    private Button btnContinue;
 
     private ProgressBar progressBar;
 
@@ -39,62 +35,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        /**
-         * Initializing the connection between the code and design
-         */
-        etUserEmail            = (EditText) findViewById(R.id.etRegisterEmail);
-        etUserPhoneNumber      = (EditText) findViewById(R.id.etRegisterPhoneNumber);
-        etUserFullName        = (EditText) findViewById(R.id.etRegisterFullName);
-        etUserPassword         = (EditText) findViewById(R.id.etRegisterPassword);
-        etUserConfirmPassword  = (EditText) findViewById(R.id.etRegisterConfirmPassword);
+        etUserEmail            = findViewById(R.id.etRegisterEmail);
+        etUserPhoneNumber      = findViewById(R.id.etRegisterPhoneNumber);
+        etUserFullName         = findViewById(R.id.etRegisterFullName);
+        etUserPassword         = findViewById(R.id.etRegisterPassword);
+        etUserConfirmPassword  = findViewById(R.id.etRegisterConfirmPassword);
 
-        btnContinue        = (Button) findViewById(R.id.btnRegisterContinue);
+        Button btnContinue = findViewById(R.id.btnRegisterContinue);
 
-        progressBar            = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar            = findViewById(R.id.progressBar);
 
-        /**
-         * Checking if the user is already signed into the app
-         */
         registerAuthentication = FirebaseAuth.getInstance();
 
-        /**
-         * Redirecting the user depending on the button they press
-         */
         btnContinue.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.btnRegisterContinue:
-                register();
-                break;
+        if (view.getId() == R.id.btnRegisterContinue) {
+            register();
         }
     }
 
     private void register() {
-        /**
-         * Get user input data and check for null fields
-         */
-        String email = etUserEmail.getText().toString().trim();
-        String fullName = etUserFullName.getText().toString().trim();
-        String phoneNumber = etUserPhoneNumber.getText().toString().trim();
-        String password = etUserPassword.getText().toString().trim();
+        String email           = etUserEmail.getText().toString().trim();
+        String fullName        = etUserFullName.getText().toString().trim();
+        String phoneNumber     = etUserPhoneNumber.getText().toString().trim();
+        String password        = etUserPassword.getText().toString().trim();
         String confirmPassword = etUserConfirmPassword.getText().toString().trim();
 
         User user = new User(email, fullName, phoneNumber);
 
-        /**
-         * Check if the input is in the correct format
-         */
-        if(assertInputCorrectness(user, password, confirmPassword) == false) {
+        if(!assertInputCorrectness(user, password, confirmPassword)) {
             return;
         }
 
-        /**
-         * Create a new user with the data provided
-         */
         createUser(user, password);
     }
 
@@ -103,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      * @param user            is the user data that will be stored unencrypted
      * @param password        is the password provided by the user ( it is encrypted )
      * @param confirmPassword is the confirmation of the password provided by the user ( it is encrypted )
-     * @return
+     * @return whether the input is correct
      */
     private boolean assertInputCorrectness(User user, String password, String confirmPassword) {
         if(user.getEmail().isEmpty()) {
@@ -163,18 +139,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
      */
     private void createUser(User user, String password) {
         registerAuthentication.createUserWithEmailAndPassword(user.getEmail(), password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()) {
 
-                            FirebaseDatabase.getInstance().getReference().child("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()) //getUid
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
+                        FirebaseDatabase.getInstance().getReference().child("Users")
+                                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()) //getUid
+                                .setValue(user).addOnCompleteListener(task1 -> {
 
-                                    if(task.isSuccessful()) {
+                                    if(task1.isSuccessful()) {
                                         Toast.makeText(RegisterActivity.this,
                                                 "User has been registered successfully! Please confirm email",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -186,13 +158,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
                                     }
-                                }
-                            });
-                        }
-                        else {
-                            Toast.makeText(RegisterActivity.this,"Failed to register", Toast.LENGTH_LONG).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
+                                });
+                    }
+                    else {
+                        Toast.makeText(RegisterActivity.this,"Failed to register", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }

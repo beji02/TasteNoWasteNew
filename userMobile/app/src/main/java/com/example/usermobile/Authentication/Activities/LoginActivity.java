@@ -31,19 +31,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        TextView goToRegister = findViewById(R.id.tvLoginRegister);
+
+        TextView goToRegister       = findViewById(R.id.tvLoginRegister);
         TextView goToForgotPassword = findViewById(R.id.tvLoginForgotPassword);
-        Button btnSignIn = findViewById(R.id.btnLoginSignIn);
+
         etEmail            = findViewById(R.id.etLoginEmail);
         etPassword         = findViewById(R.id.etLoginPassword);
         progressBar        = findViewById(R.id.progressBar);
 
+        Button btnSignIn = findViewById(R.id.btnLoginSignIn);
+
         loginAuthentication = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = loginAuthentication.getCurrentUser();
-//        if(currentUser != null) {
-//            startActivity(new Intent(this, MainActivity.class));
-//        }
+        if(currentUser != null && currentUser.isEmailVerified() == true) {
+            startActivity(new Intent(this, MainActivity.class));
+        }
 
         goToRegister.setOnClickListener(this);
         goToForgotPassword.setOnClickListener(this);
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /**
      * Choosing which part to start
-     * @param view the current view
+     * @param view the current phone screen
      */
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -62,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.tvLoginForgotPassword:
-                // open new window
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
                 break;
             case R.id.btnLoginSignIn:
                 userLogin();
@@ -136,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 assert user != null;
                 if(user.isEmailVerified()) {
-                    //redirect to user profile
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
                 else {
@@ -144,12 +146,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(LoginActivity.this, "Check your email to verify your account",
                             Toast.LENGTH_SHORT).show();
                 }
-
             } else {
                 Toast.makeText(LoginActivity.this, "Failed to login! Please check your credentials",
                         Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
             }
         });
+
+        progressBar.setVisibility(View.GONE);
     }
 }
