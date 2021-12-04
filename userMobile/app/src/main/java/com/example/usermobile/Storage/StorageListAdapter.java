@@ -90,6 +90,8 @@ public class StorageListAdapter extends ArrayAdapter<Product> implements View.On
 
         if(product.getPhotoLink() != null) {
             Picasso.get().load(product.getPhotoLink()).into(viewHolder.ivPhoto);
+        } else {
+            Picasso.get().load("https://www.facebook.com/dnwfood/photos/a.1680917368864156/1682203278735565/?type=3").into(viewHolder.ivPhoto);
         }
 
 
