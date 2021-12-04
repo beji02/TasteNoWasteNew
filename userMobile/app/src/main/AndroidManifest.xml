@@ -43,6 +43,14 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <receiver
+            android:name=".Notification.NotificationBroadcast"
+            android:allowBackup="true"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
+
 
 </manifest>

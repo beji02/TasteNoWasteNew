@@ -24,4 +24,6 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK" />
+
 </project>
