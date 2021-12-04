@@ -1,14 +1,21 @@
 package com.example.usermobile.Storage;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
+import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
+import com.example.usermobile.Settings.SettingsMenu;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +48,29 @@ public class StorageListView extends AppCompatActivity {
                 ProductDialog productDialog = new ProductDialog(product, StorageListView.this);
                 productDialog.show(getSupportFragmentManager(), "productDialog");
 
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setSelectedItemId(R.id.storageListView);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.storageListView:
+                        return true;
+                    case R.id.settingsMenu:
+                        startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.productAdditionMenu:
+                        startActivity(new Intent(getApplicationContext(), ProductAdditionMenu.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+
+                return true;
             }
         });
     }
@@ -85,5 +115,6 @@ public class StorageListView extends AppCompatActivity {
     public void deleteProduct (Product product) {
         productStorage.deleteProduct(product);
         storageListAdapter.remove(product);
+        Toast.makeText(this, "Product succesfully deleted", Toast.LENGTH_SHORT).show();
     }
 }

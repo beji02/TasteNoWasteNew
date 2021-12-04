@@ -9,15 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 
-import androidx.core.content.ContextCompat;
-
 import com.example.usermobile.R;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class StorageListAdapter extends ArrayAdapter<Product> implements View.OnClickListener {
     private ArrayList<Product> dataSet;
