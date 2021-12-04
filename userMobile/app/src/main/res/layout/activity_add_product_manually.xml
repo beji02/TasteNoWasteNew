@@ -16,9 +16,9 @@
         android:gravity="start"
 
 
-        android:hint="300g"
+        android:hint="300"
         android:importantForAutofill="no"
-        android:inputType="text"
+        android:inputType="number"
         android:paddingLeft="1dp"
         android:paddingTop="10dp"
         android:paddingRight="1dp"

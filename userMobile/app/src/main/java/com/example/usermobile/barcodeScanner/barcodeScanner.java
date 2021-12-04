@@ -58,6 +58,8 @@ public class barcodeScanner extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendToDatabase();
+
                 selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
                 surfaceView.setVisibility(View.VISIBLE);
                 expiryDate.setVisibility(View.GONE);
@@ -161,6 +163,17 @@ public class barcodeScanner extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    void sendToDatabase() {
+        // add jsonProduct to database
+        Toast.makeText(getApplicationContext(),
+                        jsonProduct.getName()+"/"+
+                            Integer.toString(jsonProduct.getQuantity())+"/"+
+                            jsonProduct.getExpirationDate()+"/"+
+                            jsonProduct.getCategory()+"/"+
+                            jsonProduct.getQuantity(), Toast.LENGTH_SHORT).show(
+        );
     }
 
     @Override

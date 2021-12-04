@@ -6,6 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.Storage.Product;
 
+//import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -70,15 +74,15 @@ public class WebRequest extends AppCompatActivity {
 
     // take data from json array element, based on id
     public Product readProduct(JsonReader reader) throws IOException {
-        String category = "";
+        String []category = new String[0];
         String []packages = new String[0];
         String productImageUrl = "", productName = "", quantity = "0";
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("compared_to_category")) {
-                category = reader.nextString().substring(3).replace("-", " ");
+            if (name.equals("categories_hierarchy")) {
+                category = reader.nextString().split("\\s*,\\s*");
             } else if (name.equals("image_front_url")) {
                 productImageUrl = reader.nextString();
             } else if (name.equals("packaging")) {
@@ -92,7 +96,13 @@ public class WebRequest extends AppCompatActivity {
             }
         }
         reader.endObject();
-        Product product = new Product(productName, Integer.parseInt(quantity), LocalDate.now().toString(), category, packages[0], productImageUrl);
+        Product product = new Product(  productName,
+                                        Integer.parseInt(quantity),
+                                        //LocalDate.now().toString(),
+                                        "",
+                                        StringUtils.capitalize(category[0].substring(3).replace("-", " ")),
+                                        packages[0],
+                                        productImageUrl);
         return product;
     }
 }

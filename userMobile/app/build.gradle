@@ -52,4 +52,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'org.apache.commons:commons-lang3:3.9'
+
 }

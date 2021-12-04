@@ -1,7 +1,5 @@
 package com.example.usermobile.ProductAddition;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,10 +9,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.usermobile.R;
+import com.example.usermobile.Storage.Product;
 
 public class AddProductManually extends AppCompatActivity {
     /*
@@ -28,7 +28,23 @@ public class AddProductManually extends AppCompatActivity {
          */
     //private TextView tvNume, tvQuantity, tvExpirationDate, tvPackage, tvCategory;
     String[] itemsPackage = {"Paper", "Glass", "Plastic", "Carton", "Metal", "Unknown"};
-    String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
+    //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
+    String[] itemsCategory = {
+            "Plant-based foods and beverages",
+            "Snacks",
+            "Beverages",
+            "Dairies",
+            "Cereals and potatoes",
+            "Meats",
+            "Fruits and vegetables",
+            "Cheeses",
+            "Frozen foods",
+            "Desserts",
+            "Seafood",
+            "Condiments",
+            "Fishes",
+            "Wines",
+            "Pastas"};
     String productName, productQuantity, productExpirationDate, productPackage, productCategory;
 
     AutoCompleteTextView autoCompleteTextView;
@@ -42,7 +58,6 @@ public class AddProductManually extends AppCompatActivity {
     private Button bAdd, bCancel;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +67,9 @@ public class AddProductManually extends AppCompatActivity {
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item_b, itemsPackage);
         autoCompleteTextView.setAdapter(arrayAdapter);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 productPackage = item;
             }
@@ -64,10 +78,9 @@ public class AddProductManually extends AppCompatActivity {
         autoCompleteTextView2 = findViewById(R.id.auto_complete_txt2);
         arrayAdapter2 = new ArrayAdapter<String>(this, R.layout.list_item_b, itemsCategory);
         autoCompleteTextView2.setAdapter(arrayAdapter2);
-        autoCompleteTextView2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        autoCompleteTextView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
                 productCategory = item;
             }
@@ -76,21 +89,35 @@ public class AddProductManually extends AppCompatActivity {
 
         etNume = findViewById(R.id.etProductName);
         etQuantity = findViewById(R.id.etQuantity);
-        dpExpirationDate = (DatePicker) findViewById(R.id.datePicker2);
+        dpExpirationDate = findViewById(R.id.datePicker2);
 
-        bAdd = (Button) findViewById(R.id.addBtn2);
-        bCancel = (Button) findViewById(R.id.cancelBtn2);
+        bAdd = findViewById(R.id.addBtn2);
+        bCancel = findViewById(R.id.cancelBtn2);
+
+        bAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToDatabase();
+                Toast.makeText(getApplicationContext(), "ProductAdded", Toast.LENGTH_SHORT).show();
+            }
+        });
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
-
 
 
     void sendToDatabase() {
         productName = etNume.getText().toString();
-        productQuantity = etNume.getText().toString();
+        int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
         productExpirationDate = "Selected date: " + dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
 
-        // aici se poate crea obiectul
-        //Product product = new Product();
+        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, "-");
+
+        // add product to database
     }
 
 }
