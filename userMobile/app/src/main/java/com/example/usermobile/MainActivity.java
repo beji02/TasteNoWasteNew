@@ -1,9 +1,12 @@
 package com.example.usermobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.usermobile.Authentication.Activities.LoginActivity;
 import com.example.usermobile.Notification.CustomNotification;
 import com.example.usermobile.Notification.CustomNotificationManager;
+import com.example.usermobile.barcodeScanner.barcodeScanner;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner);
+        setContentView(R.layout.activity_main);
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
         //cod de test Bejan
         //afiseaza o notificare dupa 10 secunde de la rulare
