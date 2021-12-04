@@ -1,8 +1,5 @@
 package com.example.usermobile.Storage;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
@@ -79,17 +78,17 @@ public class StorageListView extends AppCompatActivity {
         productStorage = new Storage();
 
         productStorage.addProduct(new Product("Tomato", 300, "2021-12-03", "vegetable",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productStorage.addProduct(new Product("Apple", 100, "2021-11-03", "fruit",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productStorage.addProduct(new Product("Meat", 300, "2021-09-03", "meat",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productStorage.addProduct(new Product("Meat", 300, "2022-01-03", "meat",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productStorage.addProduct(new Product("Meat", 300, "2021-12-29", "meat",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productStorage.addProduct(new Product("Meat", 300, "2022-10-03", "meat",
-                new String[] {"da", "nu"}));
+                new String[] {"da", "nu"}, ""));
         productList = productStorage.getProductList();
         sortProductListAscending();
     }

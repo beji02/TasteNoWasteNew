@@ -17,12 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.usermobile.R;
+import com.example.usermobile.Storage.Product;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class barcodeScanner extends AppCompatActivity {
@@ -34,7 +36,7 @@ public class barcodeScanner extends AppCompatActivity {
     private String barcodeData;
     private static final int DURATION = Toast.LENGTH_LONG;
     private WebRequest webRequest;
-    private String jsonResponse = "";
+    private Product jsonProduct;
     private DatePicker datePicker;
     private Button cancelBtn, okBtn, manualBtn;
 
@@ -122,34 +124,36 @@ public class barcodeScanner extends AppCompatActivity {
                             barcodeText.removeCallbacks(null);
                             barcodeData = barcodes.valueAt(0).email.address;
                             webRequest = new WebRequest();
-                            jsonResponse = webRequest.sentWebRequest(barcodeData);
-//                            Toast toast = Toast.makeText(getApplicationContext(), jsonResponse, DURATION);
+                            jsonProduct = webRequest.sentWebRequest(barcodeData);
+//                            Toast toast = Toast.makeText(getApplicationContext(), jsonProducts.getName(), DURATION);
 //                            toast.show();
-                            if (jsonResponse != "") {
+                            if (jsonProduct.getName() != "") {
                                 surfaceView.setVisibility(View.GONE);
                                 barcodeText.setText(barcodeData);
 
                                 expiryDate.setVisibility(View.VISIBLE);
-//                                selectedDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
 
-                                jsonResponse = jsonResponse + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear() + ";";
+                                String expiryDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+                                jsonProduct.setExpirationDate(LocalDate.parse(expiryDate));
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }
                         } else {
                             barcodeData = barcodes.valueAt(0).displayValue;
                             webRequest = new WebRequest();
-                            jsonResponse = webRequest.sentWebRequest(barcodeData);
-                            if (jsonResponse != "") {
+                            jsonProduct = webRequest.sentWebRequest(barcodeData);
+//                            Toast toast = Toast.makeText(getApplicationContext(), jsonProducts.getName(), DURATION);
+//                            toast.show();
+                            if (jsonProduct.getName() != "") {
                                 surfaceView.setVisibility(View.GONE);
                                 barcodeText.setText(barcodeData);
 
                                 expiryDate.setVisibility(View.VISIBLE);
-//                                selectedDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
 
-                                jsonResponse = jsonResponse + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear() + ";";
+                                String expiryDate = datePicker.getYear() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+                                jsonProduct.setExpirationDate(LocalDate.parse(expiryDate));
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }

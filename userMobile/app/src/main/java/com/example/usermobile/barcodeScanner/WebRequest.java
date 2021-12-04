@@ -4,28 +4,22 @@ import android.util.JsonReader;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.usermobile.Storage.Product;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
 
-@SuppressWarnings("deprecation")
 public class WebRequest extends AppCompatActivity {
 
-    public String response = "";
-
-    // convert InputStream to string (utf-8)
-    private static String streamToString(InputStream inputStream) {
-        return new Scanner(inputStream, "UTF-8").useDelimiter("\\Z").next();
-    }
+    public Product response;
 
     // set web connection and get json input
-    public String sentWebRequest(String barcode) {
+    public Product sentWebRequest(String barcode) {
 
         String liveJSON = "https://world.openfoodfacts.org/api/v0/product/[barcode].json";
         String requestURL = liveJSON.replace("[barcode]", barcode);
@@ -41,7 +35,7 @@ public class WebRequest extends AppCompatActivity {
             conn.connect();
             InputStream inStream = conn.getInputStream();
 
-            response = readJsonStream(inStream).toString();
+            response = readJsonStream(inStream);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -50,54 +44,35 @@ public class WebRequest extends AppCompatActivity {
     }
 
     // read json information
-    public List<String> readJsonStream(InputStream in) throws IOException {
+    public Product readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
-            return readMessagesArray(reader);
+            return readMessage(reader);
         } finally {
             reader.close();
         }
     }
 
-    // go through json elements
-    public List<String> readMessagesArray(JsonReader reader) throws IOException {
-        List<String> messages = new ArrayList<String>();
-
+    // identify json element based on id
+    public Product readMessage(JsonReader reader) throws IOException {
         reader.beginObject();
         while (reader.hasNext()) {
-            messages.add(readMessage(reader));
-        }
-        reader.endObject();
-        return messages;
-    }
-
-    // identify json element based on id
-    public String readMessage(JsonReader reader) throws IOException {
-        String code = "";
-        String productInfo = "";
-
-        while (reader.hasNext()) {
             String name = reader.nextName();
-            if (name.equals("code")) {
-                code = reader.nextString();
-            } else if (name.equals("product")) {
-                productInfo = readProduct(reader);
+            if (name.equals("product")) {
+                return readProduct(reader);
             } else {
                 reader.skipValue();
             }
         }
-        String product;
-        product = code + ";" + productInfo;
-        System.out.println(product);
 
-        return product;
+        return new Product("", 0, "", "", new String[0], "");
     }
 
     // take data from json array element, based on id
-    public String readProduct(JsonReader reader) throws IOException {
-        String product = "";
-        String category = "", packages = "";
-        String productImageUrl = "", productName = "", quantity = "";
+    public Product readProduct(JsonReader reader) throws IOException {
+        String category = "";
+        String []packages = new String[0];
+        String productImageUrl = "", productName = "", quantity = "0";
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -107,7 +82,7 @@ public class WebRequest extends AppCompatActivity {
             } else if (name.equals("image_front_url")) {
                 productImageUrl = reader.nextString();
             } else if (name.equals("packaging")) {
-                packages = reader.nextString();
+                packages = reader.nextString().split("\\s*,\\s*");
             } else if (name.equals("product_name")) {
                 productName = reader.nextString();
             } else if (name.equals("product_quantity")) {
@@ -117,7 +92,7 @@ public class WebRequest extends AppCompatActivity {
             }
         }
         reader.endObject();
-        product = category + ";" + packages + ";" + productImageUrl + ";" + productName + ";" + quantity + ';';
+        Product product = new Product(productName, Integer.parseInt(quantity), LocalDate.now().toString(), category, packages, productImageUrl);
         return product;
     }
 }
