@@ -9,6 +9,7 @@ import android.os.StrictMode;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,6 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 public class barcodeScanner extends AppCompatActivity {
@@ -101,18 +100,18 @@ public class barcodeScanner extends AppCompatActivity {
                             barcodeData = barcodes.valueAt(0).email.address;
                             webRequest = new WebRequest();
                             url = webRequest.sentWebRequest(barcodeData);
-                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
-                            toast.show();
-//                            cameraSource.stop();
+//                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
+//                            toast.show();
+                            cameraSource.stop();
                             barcodeText.setText(barcodeData);
                             toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         } else {
                             barcodeData = barcodes.valueAt(0).displayValue;
                             webRequest = new WebRequest();
                             url = webRequest.sentWebRequest(barcodeData);
-                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
-                            toast.show();
-//                            cameraSource.stop();
+//                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
+//                            toast.show();
+                            cameraSource.stop();
                             barcodeText.setText(barcodeData);
                             toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         }

@@ -19,10 +19,12 @@ public class WebRequest extends AppCompatActivity {
 
     public String response = "";
 
+    // convert InputStream to string (utf-8)
     private static String streamToString(InputStream inputStream) {
         return new Scanner(inputStream, "UTF-8").useDelimiter("\\Z").next();
     }
 
+    // set web connection and get json input
     public String sentWebRequest(String barcode) {
 
         String liveJSON = "https://world.openfoodfacts.org/api/v0/product/[barcode].json";
@@ -47,6 +49,7 @@ public class WebRequest extends AppCompatActivity {
         return response;
     }
 
+    // read json information
     public List<String> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         try {
@@ -56,6 +59,7 @@ public class WebRequest extends AppCompatActivity {
         }
     }
 
+    // go through json elements
     public List<String> readMessagesArray(JsonReader reader) throws IOException {
         List<String> messages = new ArrayList<String>();
 
@@ -67,11 +71,11 @@ public class WebRequest extends AppCompatActivity {
         return messages;
     }
 
+    // identify json element based on id
     public String readMessage(JsonReader reader) throws IOException {
         String code = "";
         String productInfo = "";
 
-//        reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("code")) {
@@ -82,13 +86,14 @@ public class WebRequest extends AppCompatActivity {
                 reader.skipValue();
             }
         }
-//        reader.endObject();
         String product;
         product = code + ";" + productInfo;
+        System.out.println(product);
 
         return product;
     }
 
+    // take data from json array element, based on id
     public String readProduct(JsonReader reader) throws IOException {
         String product = "";
         String category = "", packages = "";
@@ -98,7 +103,7 @@ public class WebRequest extends AppCompatActivity {
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("compared_to_category")) {
-                category = reader.nextString();
+                category = reader.nextString().substring(3).replace("-", " ");
             } else if (name.equals("image_front_url")) {
                 productImageUrl = reader.nextString();
             } else if (name.equals("packaging")) {
