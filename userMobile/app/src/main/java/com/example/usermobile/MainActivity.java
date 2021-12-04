@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         //cod de test Bejan
         //afiseaza o notificare dupa 10 secunde de la rulare
         CustomNotificationManager myNotificationManager = new CustomNotificationManager(this);
@@ -39,15 +38,6 @@ public class MainActivity extends AppCompatActivity {
         myNotificationManager.sendNotification(myNotification);
         Toast.makeText(this,"Notification Set!", Toast.LENGTH_SHORT).show();
         //////////////////////
-
-
-
-
-
-
-
-
-
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
