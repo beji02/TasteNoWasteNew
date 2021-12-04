@@ -32,12 +32,9 @@ public class AddProductManually extends AppCompatActivity {
             O clasa Product cu atributele (Id, Nume, Quantity, expirationDate, ambalaje cu dropdown, categorii cu dropdown)
             StorageDatabase - clasa care se ocupa cu store User's Storage in firebase database:
                 functions: storeProduct(idUser, Product), deleteProduct(idUser, idProduct)
-
-
          */
-    //private TextView tvNume, tvQuantity, tvExpirationDate, tvPackage, tvCategory;
-    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Carton", "Metal", "Unknown"};
-    //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
+
+    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Cardboard", "Metal", "Unknown"};
     String[] itemsCategory = {
             "Snacks",
             "Beverages",
@@ -52,8 +49,11 @@ public class AddProductManually extends AppCompatActivity {
             "Condiments",
             "Fishes",
             "Wines",
-            "Pastas"};
-    String productName, productQuantity, productExpirationDate, productPackage, productCategory;
+            "Pastas",
+            "Unknown"};
+    String productName;
+    String productPackage;
+    String productCategory;
 
     DatabaseStorageManager databaseStorageManager;
 
@@ -69,7 +69,6 @@ public class AddProductManually extends AppCompatActivity {
     private DatePicker dpExpirationDate;
     private ListView lvPackage, lvCategory;
     private Button bAdd, bCancel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,6 @@ public class AddProductManually extends AppCompatActivity {
             }
         });
 
-
         etNume = findViewById(R.id.etProductName);
         etQuantity = findViewById(R.id.etQuantity);
         dpExpirationDate = findViewById(R.id.datePicker2);
@@ -125,10 +123,17 @@ public class AddProductManually extends AppCompatActivity {
         });
     }
 
-
     void sendToDatabase() {
         productName = etNume.getText().toString();
-        int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
+        String[] productQuantity;
+        String quantity = "0", unitOfMeasure = "";
+
+        productQuantity = etQuantity.getText().toString().split("\\s* \\s*");
+        quantity = productQuantity[0];
+        if (productQuantity.length > 1) {
+            unitOfMeasure = productQuantity[1];
+        }
+
         String productExpirationDate = dpExpirationDate.getYear() + "-";
         if ((dpExpirationDate.getMonth() + 1) < 10) {
             productExpirationDate += "0" + (dpExpirationDate.getMonth() + 1);
@@ -141,7 +146,7 @@ public class AddProductManually extends AppCompatActivity {
             productExpirationDate += "-" + dpExpirationDate.getDayOfMonth();
         }
 
-        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
+        Product product = new Product(productName, Integer.parseInt(quantity), unitOfMeasure, productExpirationDate, productCategory, productPackage, null);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         databaseStorageManager.addProduct(userID, product);

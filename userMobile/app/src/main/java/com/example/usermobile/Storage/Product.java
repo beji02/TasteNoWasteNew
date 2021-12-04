@@ -1,21 +1,16 @@
 package com.example.usermobile.Storage;
 
 public class Product {
+    private static int idCodeGen = 100;
     private String name;
     private int quantity;
+    private String unitOfMeasure;
     private String expirationDate;
     private String category;
     private String packages;
     private String idCode;
-    private static int idCodeGen = 100;
     private String photoLink;
 
-
-
-    private String getUniqueProductId(){
-        idCodeGen ++;
-        return Integer.toString(idCodeGen);
-    }
 
     public Product() {
 
@@ -28,9 +23,10 @@ public class Product {
      * @param category
      * @param packages
      */
-    public Product (final String name, final int quantity, final String expirationDate, final String category, final String packages, final String photoLink){
+    public Product(final String name, final int quantity, final String unitOfMeasure, final String expirationDate, final String category, final String packages, final String photoLink) {
         this.name = name;
         this.quantity = quantity;
+        this.unitOfMeasure = unitOfMeasure;
         this.expirationDate = expirationDate;
         this.category = category;
         this.photoLink = photoLink;
@@ -38,14 +34,20 @@ public class Product {
         this.idCode = getUniqueProductId();
     }
 
-    public Product (final String name, final int quantity, final String expirationDate, final String category, final String packages, final String photoLink, final String idCode){
+    public Product(final String name, final int quantity, final String unitOfMeasure, final String expirationDate, final String category, final String packages, final String photoLink, final String idCode) {
         this.name = name;
         this.quantity = quantity;
+        this.unitOfMeasure = unitOfMeasure;
         this.expirationDate = expirationDate;
         this.category = category;
         this.packages = packages;
         this.photoLink = photoLink;
         this.idCode = idCode;
+    }
+
+    private String getUniqueProductId() {
+        idCodeGen++;
+        return Integer.toString(idCodeGen);
     }
 
     public String getName() {
@@ -62,6 +64,10 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
     }
 
     public String getExpirationDate() {

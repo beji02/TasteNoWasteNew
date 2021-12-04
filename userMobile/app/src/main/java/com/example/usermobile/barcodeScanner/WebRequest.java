@@ -66,14 +66,16 @@ public class WebRequest extends AppCompatActivity {
             }
         }
 
-        return new Product("", 0, "", "", "", "");
+        return new Product("", 0, "", "", "", "", "");
     }
 
     // take data from json array element, based on id
     public Product readProduct(JsonReader reader) throws IOException {
         String[] categories = new String[0];
         String[] packages = new String[0];
-        String productImageUrl = "", productName = "", quantity = "0";
+        String productImageUrl = "", productName = "";
+        String[] productQuantity = new String[0];
+        String quantity = "0", unitOfMeasure = "";
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -86,15 +88,22 @@ public class WebRequest extends AppCompatActivity {
                 packages = reader.nextString().split("\\s*,\\s*");
             } else if (name.equals("product_name")) {
                 productName = reader.nextString();
-            } else if (name.equals("product_quantity")) {
-                quantity = reader.nextString();
+            } else if (name.equals("quantity")) {
+                productQuantity = reader.nextString().split("\\s* \\s*");
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
+
+        quantity = productQuantity[0];
+        if (productQuantity.length > 1) {
+            unitOfMeasure = productQuantity[1];
+        }
+
         Product product = new Product(productName,
                 Integer.parseInt(quantity),
+                unitOfMeasure,
                 "",
                 StringUtils.capitalize(categories[0].replace('-', ' ')),
                 packages[0],
