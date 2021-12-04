@@ -5,20 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4732d8e-22fa-41ce-ba74-68fc3aebd5f4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/userMobile/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/userMobile/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userMobile/app/src/main/java/com/example/usermobile/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/userMobile/app/src/main/java/com/example/usermobile/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/userMobile/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/userMobile/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/userMobile/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/userMobile/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\radum\.android\avd\pixel_2_pie_9_0_-_api_28.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\tilma\.android\avd\Nexus_5X_API_26.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="madalin" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -29,9 +31,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/userMobile" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
@@ -112,5 +115,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
