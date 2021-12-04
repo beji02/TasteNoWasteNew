@@ -15,7 +15,7 @@
         android:layout_marginBottom="136dp"
         android:backgroundTint="#808080"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="skip"
+        android:text="@string/skip"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAdditionalDataSave"
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#808080"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="save"
+        android:text="@string/save"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/btnAdditionalDataSkip"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
         android:fontFamily="@font/fredericka_the_great"
         android:gravity="start"
 
-        android:hint="33030"
+        android:hint="@string/_33030"
         android:importantForAutofill="no"
 
 
@@ -68,7 +68,7 @@
         android:fontFamily="@font/fredericka_the_great"
 
         android:gravity="start"
-        android:hint="Timis"
+        android:hint="@string/timis"
 
 
         android:importantForAutofill="no"
@@ -92,7 +92,7 @@
         android:gravity="start"
 
 
-        android:hint="Romania"
+        android:hint="@string/romania"
         android:importantForAutofill="no"
         android:inputType="textPassword"
         android:paddingLeft="1dp"
@@ -112,7 +112,7 @@
 
         android:fontFamily="@font/fredericka_the_great"
         android:gravity="start"
-        android:hint="street, house no, app no"
+        android:hint="@string/street_house_no_app_no"
         android:importantForAutofill="no"
 
         android:inputType="textPassword"
@@ -136,7 +136,7 @@
         android:fontFamily="@font/fredericka_the_great"
         android:gravity="start"
 
-        android:hint="Timisoara"
+        android:hint="@string/timisoara"
         android:importantForAutofill="no"
 
 
@@ -159,7 +159,7 @@
         android:layout_marginStart="90dp"
         android:layout_marginTop="145dp"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="Country"
+        android:text="@string/country"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
@@ -173,7 +173,7 @@
 
         android:layout_marginTop="10dp"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="Address"
+        android:text="@string/address"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
@@ -187,7 +187,7 @@
 
         android:layout_marginTop="10dp"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="City"
+        android:text="@string/city"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
@@ -201,7 +201,7 @@
 
         android:layout_marginTop="10dp"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="Zipcode"
+        android:text="@string/zipcode"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"
@@ -215,7 +215,7 @@
 
         android:layout_marginTop="10dp"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="County"
+        android:text="@string/county"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="18sp"

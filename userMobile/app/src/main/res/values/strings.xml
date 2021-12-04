@@ -13,14 +13,25 @@
     <string name="passwordHint">******</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="don_t_have_an_account_register">Don\'t have an account? Register</string>
-<<<<<<< HEAD
     <string name="sign_in">Sign in</string>
-=======
->>>>>>> 1d52ea4d414032b96686cd72b3f16a38cd7e24e7
     <string name="someone_email_com">someone@email.com</string>
     <string name="email">Email:</string>
     <string name="confirm_password">Confirm Password:</string>
     <string name="firstname_secondname">FirstName SecondName</string>
     <string name="_0749159835">0749159835</string>
     <string name="phone_number">Phone number</string>
+    <string name="Continue">Continue</string>
+    <string name="skip">skip</string>
+    <string name="save">save</string>
+    <string name="_33030">33030</string>
+    <string name="timis">Timis</string>
+    <string name="romania">Romania</string>
+    <string name="street_house_no_app_no">street, house no, app no</string>
+    <string name="timisoara">Timisoara</string>
+    <string name="country">Country</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="county">County</string>
+    <string name="password">Password</string>
 </resources>

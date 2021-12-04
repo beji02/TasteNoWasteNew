@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.221" />
 
     <EditText
         android:id="@+id/etRegisterPhoneNumber"
@@ -191,10 +191,10 @@
         android:layout_height="wrap_content"
 
         android:fontFamily="@font/fredericka_the_great"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-
         android:text="@string/password"
+        android:textColor="@color/white"
+
+        android:textColorHint="@color/white"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/etRegisterEmail"
         app:layout_constraintTop_toBottomOf="@+id/etRegisterEmail" />
@@ -222,7 +222,7 @@
         android:layout_marginEnd="100dp"
         android:backgroundTint="#808080"
         android:fontFamily="@font/fredericka_the_great"
-        android:text="continue"
+        android:text="@string/Continue"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

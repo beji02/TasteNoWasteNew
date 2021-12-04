@@ -69,7 +69,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch(view.getId()) {
             case R.id.btnRegisterContinue:
                 register();
-                //startActivity(new Intent(RegisterActivity.this, AdditionalDataActivity.class));
                 break;
         }
     }
@@ -179,8 +178,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                         Toast.makeText(RegisterActivity.this,
                                                 "User has been registered successfully! Please confirm email",Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        //startActivity(intent);
+                                        Intent intent = new Intent(RegisterActivity.this, AdditionalDataActivity.class);
+                                        startActivity(intent);
                                     }
                                     else {
                                         Toast.makeText(RegisterActivity.this,"Failed to register! Try again!",
