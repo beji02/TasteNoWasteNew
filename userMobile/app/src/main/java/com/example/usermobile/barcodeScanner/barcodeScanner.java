@@ -66,6 +66,18 @@ public class barcodeScanner extends AppCompatActivity {
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String pickExpiryDate = datePicker.getYear() + "-";
+                if ((datePicker.getMonth() + 1) < 10) {
+                    pickExpiryDate += "0" + (datePicker.getMonth() + 1);
+                } else {
+                    pickExpiryDate += (datePicker.getMonth() + 1);
+                }
+                if ((datePicker.getDayOfMonth() < 10)) {
+                    pickExpiryDate += "-0" + datePicker.getDayOfMonth();
+                } else {
+                    pickExpiryDate += "-" + datePicker.getDayOfMonth();
+                }
+                jsonProduct.setExpirationDate(pickExpiryDate);
                 sendToDatabase();
 
                 selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
@@ -156,20 +168,6 @@ public class barcodeScanner extends AppCompatActivity {
 
                                 expiryDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
-
-                                String expiryDate = datePicker.getYear() + "-";
-                                if ((datePicker.getMonth() + 1) < 10) {
-                                    expiryDate += "0" + (datePicker.getMonth() + 1);
-                                } else {
-                                    expiryDate += (datePicker.getMonth() + 1);
-                                }
-                                if ((datePicker.getDayOfMonth() < 10)) {
-                                    expiryDate += "-0" + datePicker.getDayOfMonth();
-                                } else {
-                                    expiryDate += "-" + datePicker.getDayOfMonth();
-                                }
-
-                                jsonProduct.setExpirationDate(expiryDate);
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }
@@ -185,20 +183,6 @@ public class barcodeScanner extends AppCompatActivity {
 
                                 expiryDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
-
-                                String expiryDate = datePicker.getYear() + "-";
-                                if ((datePicker.getMonth() + 1) < 10) {
-                                    expiryDate += "0" + (datePicker.getMonth() + 1);
-                                } else {
-                                    expiryDate += (datePicker.getMonth() + 1);
-                                }
-                                if ((datePicker.getDayOfMonth() < 10)) {
-                                    expiryDate += "-0" + datePicker.getDayOfMonth();
-                                } else {
-                                    expiryDate += "-" + datePicker.getDayOfMonth();
-                                }
-
-                                jsonProduct.setExpirationDate(expiryDate);
                             } else {
                                 barcodeText.setText("Product does not exist in our database.");
                             }

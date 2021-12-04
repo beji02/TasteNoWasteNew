@@ -7,7 +7,7 @@ public class Product {
     private String category;
     private String packages;
     private String idCode;
-    private int idCodeGen = 100;
+    private static int idCodeGen = 100;
     private String photoLink;
 
 
