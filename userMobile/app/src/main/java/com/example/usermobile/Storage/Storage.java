@@ -24,4 +24,8 @@ public class Storage {
     public void addProduct (Product product){
         productList.add(product);
     }
+
+    public void deleteProduct (Product product){
+        productList.remove(product);
+    }
 }
