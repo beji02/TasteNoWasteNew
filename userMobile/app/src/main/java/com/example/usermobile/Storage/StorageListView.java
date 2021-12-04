@@ -1,8 +1,5 @@
 package com.example.usermobile.Storage;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,8 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
 import com.example.usermobile.Settings.SettingsMenu;
 import com.example.usermobile.barcodeScanner.barcodeScanner;
@@ -26,7 +24,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -86,7 +83,6 @@ public class StorageListView extends AppCompatActivity {
     private void populateProductList () {
         productStorage = new Storage();
 
-
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -101,7 +97,6 @@ public class StorageListView extends AppCompatActivity {
                       updateProductStorage(productStorage);
                       storageListAdapter.notifyDataSetChanged();
                 }
-
             }
 
             @Override

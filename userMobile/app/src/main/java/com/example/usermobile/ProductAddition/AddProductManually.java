@@ -47,7 +47,9 @@ public class AddProductManually extends AppCompatActivity {
             "Fishes",
             "Wines",
             "Pastas"};
-    String productName, productQuantity, productExpirationDate, productPackage, productCategory;
+    String productName;
+    String productPackage;
+    String productCategory;
 
     DatabaseStorageManager databaseStorageManager;
 
@@ -117,7 +119,15 @@ public class AddProductManually extends AppCompatActivity {
 
     void sendToDatabase() {
         productName = etNume.getText().toString();
-        int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
+        String[] productQuantity;
+        String quantity = "0", unitOfMeasure = "";
+
+        productQuantity = etQuantity.getText().toString().split("\\s* \\s*");
+        quantity = productQuantity[0];
+        if (productQuantity.length > 1) {
+            unitOfMeasure = productQuantity[1];
+        }
+
         String productExpirationDate = dpExpirationDate.getYear() + "-";
         if ((dpExpirationDate.getMonth() + 1) < 10) {
             productExpirationDate += "0" + (dpExpirationDate.getMonth() + 1);
@@ -130,7 +140,7 @@ public class AddProductManually extends AppCompatActivity {
             productExpirationDate += "-" + dpExpirationDate.getDayOfMonth();
         }
 
-        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
+        Product product = new Product(productName, Integer.parseInt(quantity), unitOfMeasure, productExpirationDate, productCategory, productPackage, null);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         databaseStorageManager.addProduct(userID, product);
