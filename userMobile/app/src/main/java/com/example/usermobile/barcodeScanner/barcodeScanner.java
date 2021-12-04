@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,6 +22,8 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 public class barcodeScanner extends AppCompatActivity {
@@ -38,6 +41,8 @@ public class barcodeScanner extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_scanner);
         toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         surfaceView = findViewById(R.id.surface_view);
@@ -95,17 +100,19 @@ public class barcodeScanner extends AppCompatActivity {
                             barcodeText.removeCallbacks(null);
                             barcodeData = barcodes.valueAt(0).email.address;
                             webRequest = new WebRequest();
-                            //url = webRequest.sentWebRequest(barcodeData);
-//                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
-//                            toast.show();
+                            url = webRequest.sentWebRequest(barcodeData);
+                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
+                            toast.show();
+//                            cameraSource.stop();
                             barcodeText.setText(barcodeData);
                             toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         } else {
                             barcodeData = barcodes.valueAt(0).displayValue;
                             webRequest = new WebRequest();
-                            //url = webRequest.sentWebRequest(barcodeData);
+                            url = webRequest.sentWebRequest(barcodeData);
                             Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
                             toast.show();
+//                            cameraSource.stop();
                             barcodeText.setText(barcodeData);
                             toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
                         }
