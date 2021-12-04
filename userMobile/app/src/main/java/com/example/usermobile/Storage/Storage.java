@@ -28,4 +28,8 @@ public class Storage {
     public void deleteProduct (Product product){
         productList.remove(product);
     }
+
+    public void clearProducts() {
+        productList.clear();
+    }
 }

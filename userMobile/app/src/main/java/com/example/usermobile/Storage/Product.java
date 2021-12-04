@@ -1,14 +1,17 @@
 package com.example.usermobile.Storage;
 
-import java.time.LocalDate;
-
 public class Product {
-    private final String name;
-    private final int quantity;
-    private LocalDate expirationDate;
-    private final String category;
-    private final String[] packages;
-    private final String imgURL;
+    private String name;
+    private int quantity;
+    private String expirationDate;
+    private String category;
+    private String packages;
+    private String idCode;
+    private String photoLink;
+
+    public Product() {
+
+    }
 
     /**
      * @param name
@@ -17,28 +20,46 @@ public class Product {
      * @param category
      * @param packages
      */
-    public Product(final String name, final int quantity, final String expirationDate, final String category, final String[] packages, final String imgURL) {
+    public Product (final String name, final int quantity, final String expirationDate, final String category, final String packages, final String photoLink){
         this.name = name;
         this.quantity = quantity;
-        this.expirationDate = LocalDate.parse(expirationDate);
+        this.expirationDate = expirationDate;
+        this.category = category;
+        this.photoLink = photoLink;
+        this.packages = packages;
+    }
+
+    public Product (final String name, final int quantity, final String expirationDate, final String category, final String packages, final String photoLink, final String idCode){
+        this.name = name;
+        this.quantity = quantity;
+        this.expirationDate = expirationDate;
         this.category = category;
         this.packages = packages;
-        this.imgURL = imgURL;
+        this.photoLink = photoLink;
+        this.idCode = idCode;
     }
 
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getQuantity() {
         return quantity;
     }
 
-    public LocalDate getExpirationDate() {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -46,11 +67,31 @@ public class Product {
         return category;
     }
 
-    public String[] getPackages() {
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getPackages() {
         return packages;
     }
 
-    public String getImgURL() {
-        return imgURL;
+    public void setPackages(String packages) {
+        this.packages = packages;
+    }
+
+    public String getIdCode() {
+        return idCode;
+    }
+
+    public void setIdCode(String idCode) {
+        this.idCode = idCode;
+    }
+
+    public String getPhotoLink() {
+        return photoLink;
+    }
+
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
     }
 }

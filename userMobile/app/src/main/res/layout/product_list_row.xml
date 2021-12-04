@@ -10,7 +10,7 @@
         >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivPhoto"
             android:layout_width="100dp"
             android:layout_height="fill_parent"
             app:srcCompat="@drawable/af1870a7edc55de23aed98b0d18526a9" />
