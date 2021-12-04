@@ -7,7 +7,15 @@ public class Product {
     private String category;
     private String packages;
     private String idCode;
+    private int idCodeGen = 100;
     private String photoLink;
+
+
+
+    private String getUniqueProductId(){
+        idCodeGen ++;
+        return Integer.toString(idCodeGen);
+    }
 
     public Product() {
 
@@ -27,6 +35,7 @@ public class Product {
         this.category = category;
         this.photoLink = photoLink;
         this.packages = packages;
+        this.idCode = getUniqueProductId();
     }
 
     public Product (final String name, final int quantity, final String expirationDate, final String category, final String packages, final String photoLink, final String idCode){

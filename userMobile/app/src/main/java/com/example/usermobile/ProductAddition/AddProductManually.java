@@ -13,8 +13,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 public class AddProductManually extends AppCompatActivity {
     /*
@@ -30,15 +34,14 @@ public class AddProductManually extends AppCompatActivity {
     String[] itemsPackage = {"Paper", "Glass", "Plastic", "Carton", "Metal", "Unknown"};
     //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
     String[] itemsCategory = {
-            "Plant-based foods and beverages",
             "Snacks",
             "Beverages",
             "Dairies",
-            "Cereals and potatoes",
+            "Cereals",
             "Meats",
-            "Fruits and vegetables",
+            "Fruits",
+            "Vegetables",
             "Cheeses",
-            "Frozen foods",
             "Desserts",
             "Seafood",
             "Condiments",
@@ -46,6 +49,8 @@ public class AddProductManually extends AppCompatActivity {
             "Wines",
             "Pastas"};
     String productName, productQuantity, productExpirationDate, productPackage, productCategory;
+
+    DatabaseStorageManager databaseStorageManager;
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> arrayAdapter;
@@ -63,6 +68,7 @@ public class AddProductManually extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_manually);
 
+        databaseStorageManager = new DatabaseStorageManager(this);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item_b, itemsPackage);
@@ -98,7 +104,7 @@ public class AddProductManually extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendToDatabase();
-                Toast.makeText(getApplicationContext(), "ProductAdded", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "ProductAdded", Toast.LENGTH_SHORT).show();
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -113,10 +119,12 @@ public class AddProductManually extends AppCompatActivity {
     void sendToDatabase() {
         productName = etNume.getText().toString();
         int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
-        productExpirationDate = "Selected date: " + dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
+        productExpirationDate = dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
 
-        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, "-");
+        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
+        String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
+        databaseStorageManager.addProduct(userID, product);
         // add product to database
     }
 
