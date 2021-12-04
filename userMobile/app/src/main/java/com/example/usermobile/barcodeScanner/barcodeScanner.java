@@ -29,11 +29,11 @@ import java.util.Objects;
 public class barcodeScanner extends AppCompatActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 201;
+    private static final int DURATION = Toast.LENGTH_LONG;
     private SurfaceView surfaceView;
     private CameraSource cameraSource;
     private TextView barcodeText, expiryDate, selectedDate;
     private String barcodeData;
-    private static final int DURATION = Toast.LENGTH_LONG;
     private WebRequest webRequest;
     private Product jsonProduct;
     private DatePicker datePicker;
@@ -49,12 +49,12 @@ public class barcodeScanner extends AppCompatActivity {
         barcodeText = findViewById(R.id.barcode_text);
         barcodeText.setVisibility(View.GONE);
 
-        datePicker = (DatePicker)findViewById(R.id.datePicker);
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
         expiryDate = findViewById(R.id.expiry_date);
         selectedDate = findViewById(R.id.selected_Date);
-        cancelBtn = (Button)findViewById(R.id.cancelBtn);
-        manualBtn = (Button)findViewById(R.id.manualBtn);
-        okBtn = (Button)findViewById(R.id.okBtn);
+        cancelBtn = (Button) findViewById(R.id.cancelBtn);
+        manualBtn = (Button) findViewById(R.id.manualBtn);
+        okBtn = (Button) findViewById(R.id.okBtn);
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,11 +168,12 @@ public class barcodeScanner extends AppCompatActivity {
     void sendToDatabase() {
         // add jsonProduct to database
         Toast.makeText(getApplicationContext(),
-                        jsonProduct.getName()+"/"+
-                            Integer.toString(jsonProduct.getQuantity())+"/"+
-                            jsonProduct.getExpirationDate()+"/"+
-                            jsonProduct.getCategory()+"/"+
-                            jsonProduct.getQuantity(), Toast.LENGTH_SHORT).show(
+                jsonProduct.getName() + "\n" +
+                        jsonProduct.getQuantity() + "\n" +
+                        jsonProduct.getExpirationDate() + "\n" +
+                        jsonProduct.getCategory() + "\n" +
+                        jsonProduct.getPackages() + "\n" +
+                        jsonProduct.getPhotoLink(), Toast.LENGTH_LONG).show(
         );
     }
 
