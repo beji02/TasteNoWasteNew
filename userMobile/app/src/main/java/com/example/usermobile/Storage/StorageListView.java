@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
 import com.example.usermobile.Settings.SettingsMenu;
+import com.example.usermobile.barcodeScanner.barcodeScanner;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -72,7 +73,7 @@ public class StorageListView extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.productAdditionMenu:
-                        startActivity(new Intent(getApplicationContext(), ProductAdditionMenu.class));
+                        startActivity(new Intent(getApplicationContext(), barcodeScanner.class));
                         overridePendingTransition(0, 0);
                         return true;
                 }

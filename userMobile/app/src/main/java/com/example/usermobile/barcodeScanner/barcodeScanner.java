@@ -1,6 +1,7 @@
 package com.example.usermobile.barcodeScanner;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
+import com.example.usermobile.ProductAddition.AddProductManually;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
 import com.google.android.gms.vision.CameraSource;
@@ -71,6 +73,20 @@ public class barcodeScanner extends AppCompatActivity {
                 expiryDate.setVisibility(View.GONE);
                 selectedDate.setVisibility(View.GONE);
                 datePicker.setVisibility(View.GONE);
+            }
+        });
+
+        manualBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), AddProductManually.class));
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.MainActivity;
 import com.example.usermobile.R;
+import com.example.usermobile.Storage.StorageListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -139,7 +140,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 assert user != null;
                 if(user.isEmailVerified()) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, StorageListView.class));
                 }
                 else {
                     user.sendEmailVerification();

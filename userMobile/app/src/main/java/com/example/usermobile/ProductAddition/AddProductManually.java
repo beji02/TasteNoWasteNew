@@ -119,7 +119,9 @@ public class AddProductManually extends AppCompatActivity {
     void sendToDatabase() {
         productName = etNume.getText().toString();
         int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
-        productExpirationDate = dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
+        //
+        // productExpirationDate = dpExpirationDate.getDayOfMonth() + "/" + (dpExpirationDate.getMonth() + 1) + "/" + dpExpirationDate.getYear();
+        productExpirationDate = dpExpirationDate.getYear() + "-" + (dpExpirationDate.getMonth() + 1) + "-" + dpExpirationDate.getDayOfMonth();
 
         Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
