@@ -2,13 +2,14 @@ package com.example.usermobile.barcodeScanner;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,12 +30,13 @@ public class barcodeScanner extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION = 201;
     private SurfaceView surfaceView;
     private CameraSource cameraSource;
-    private ToneGenerator toneGenerator;
-    private TextView barcodeText;
+    private TextView barcodeText, expiryDate, selectedDate;
     private String barcodeData;
     private static final int DURATION = Toast.LENGTH_LONG;
     private WebRequest webRequest;
-    private String url = "";
+    private String jsonResponse = "";
+    private DatePicker datePicker;
+    private Button cancelBtn, okBtn, manualBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,31 @@ public class barcodeScanner extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_scanner);
-        toneGenerator = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);
         surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
+        barcodeText.setVisibility(View.GONE);
+
+        datePicker = (DatePicker)findViewById(R.id.datePicker);
+        expiryDate = findViewById(R.id.expiry_date);
+        selectedDate = findViewById(R.id.selected_Date);
+        cancelBtn = (Button)findViewById(R.id.cancelBtn);
+        manualBtn = (Button)findViewById(R.id.manualBtn);
+        okBtn = (Button)findViewById(R.id.okBtn);
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
+                surfaceView.setVisibility(View.VISIBLE);
+                expiryDate.setVisibility(View.GONE);
+                selectedDate.setVisibility(View.GONE);
+                datePicker.setVisibility(View.GONE);
+            }
+        });
+
+        expiryDate.setVisibility(View.GONE);
+        selectedDate.setVisibility(View.GONE);
+        datePicker.setVisibility(View.GONE);
+//        barcodeText.setVisibility(View.GONE);
         initialiseDetectorsAndSources();
     }
 
@@ -98,21 +122,37 @@ public class barcodeScanner extends AppCompatActivity {
                             barcodeText.removeCallbacks(null);
                             barcodeData = barcodes.valueAt(0).email.address;
                             webRequest = new WebRequest();
-                            url = webRequest.sentWebRequest(barcodeData);
-//                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
+                            jsonResponse = webRequest.sentWebRequest(barcodeData);
+//                            Toast toast = Toast.makeText(getApplicationContext(), jsonResponse, DURATION);
 //                            toast.show();
-                            cameraSource.stop();
-                            barcodeText.setText(barcodeData);
-//                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+                            if (jsonResponse != "") {
+                                surfaceView.setVisibility(View.GONE);
+                                barcodeText.setText(barcodeData);
+
+                                expiryDate.setVisibility(View.VISIBLE);
+//                                selectedDate.setVisibility(View.VISIBLE);
+                                datePicker.setVisibility(View.VISIBLE);
+
+                                jsonResponse = jsonResponse + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear() + ";";
+                            } else {
+                                barcodeText.setText("Product does not exist in our database.");
+                            }
                         } else {
                             barcodeData = barcodes.valueAt(0).displayValue;
                             webRequest = new WebRequest();
-                            url = webRequest.sentWebRequest(barcodeData);
-//                            Toast toast = Toast.makeText(getApplicationContext(), url, DURATION);
-//                            toast.show();
-                            cameraSource.stop();
-                            barcodeText.setText(barcodeData);
-//                            toneGenerator.startTone(ToneGenerator.TONE_CDMA_PIP, 150);
+                            jsonResponse = webRequest.sentWebRequest(barcodeData);
+                            if (jsonResponse != "") {
+                                surfaceView.setVisibility(View.GONE);
+                                barcodeText.setText(barcodeData);
+
+                                expiryDate.setVisibility(View.VISIBLE);
+//                                selectedDate.setVisibility(View.VISIBLE);
+                                datePicker.setVisibility(View.VISIBLE);
+
+                                jsonResponse = jsonResponse + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear() + ";";
+                            } else {
+                                barcodeText.setText("Product does not exist in our database.");
+                            }
                         }
                     });
                 }
