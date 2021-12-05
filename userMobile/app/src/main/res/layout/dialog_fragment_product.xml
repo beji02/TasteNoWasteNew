@@ -29,8 +29,8 @@
         android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/expirationDateDialog">
+        android:layout_below="@+id/expirationDateDialog"
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:id="@+id/quantityLabelDialog"
@@ -39,8 +39,8 @@
             android:layout_below="@+id/expirationDateDialog"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="Quantity: "
             android:fontFamily="@font/sniglet"
+            android:text="Quantity: "
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 
@@ -68,10 +68,10 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/categoryDialog"
+        android:id="@+id/packagesDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quantity"
+        android:layout_below="@+id/categoryDialog"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:layout_marginTop="20dp"
@@ -79,14 +79,25 @@
         android:textColor="@color/black"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/categoryDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sniglet"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/categoryDialog"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp"
-        android:gravity="center">
+        android:layout_below="@+id/packagesDialog"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/buttonDelete"
@@ -107,4 +118,18 @@
             android:text="Cancel"
             android:textStyle="bold" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/packagesLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/packagesDialog"
+        android:layout_alignStart="@+id/packagesDialog"
+        android:layout_alignEnd="@+id/packagesDialog"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="@font/sniglet"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 </RelativeLayout>
