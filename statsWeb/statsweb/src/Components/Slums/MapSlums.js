@@ -17,15 +17,14 @@ export default class MapSlums extends React.Component {
     this.map = null;
     this.ui = null;
     const dataReader = new DataReader()
-    const locationPackagesList = dataReader.getLocationPackagesList()
-    const promise1 = new Promise((resolve, reject) => {
-      resolve('Success!');
-      console.log(locationPackagesList);
-    });
-    promise1.then((locationPackagesList) => {
-      console.log(locationPackagesList);
-    });
+    
+    //const locationPackagesList = dataReader.getLocationPackagesList()
+    //console.log(locationPackagesList)
+    
+    dataReader.populateDatabase()
 
+    this.locationComputation = new LocationComputations(dataReader)
+    
   }
 
   addMarkersToMap(map) {
@@ -147,9 +146,8 @@ export default class MapSlums extends React.Component {
         H.ui.UI.createDefault(map, layers).addBubble(bubble);
       }, false);
       
-        let locationComputations = new LocationComputations()
-        let proportions = locationComputations.calculateProportions()
-
+        let proportions = this.locationComputation.calculateProportions()
+        console.log(proportions)
 
         for (const markerValue of proportions){
           let totalPackages = markerValue.plasticCount + markerValue.restCount + markerValue.paperCount
@@ -158,14 +156,14 @@ export default class MapSlums extends React.Component {
           let restProp = 0
           
           if (totalPackages) {
-            plasticProp = markerValue.plasticCount / totalPackages
-            paperProp = markerValue.paperCount / totalPackages
-            restProp = markerValue.restCount / totalPackages
+            plasticProp = Math.round(markerValue.plasticCount / totalPackages * 100) 
+            paperProp = Math.round(markerValue.paperCount / totalPackages * 100) 
+            restProp = Math.round(markerValue.restCount / totalPackages * 100) 
           }
           
           this.addMarkerToGroup(group, markerValue.coordinates, 
             '<div> <p font_weight="bold">Waste proportions:</p></div>' +
-            `<div>${plasticProp}% plastic.<br />${restProp}% rest.<br /> ${paperProp}% paper.</div>`);
+            `<div>${plasticProp}% plastic<br />${restProp}% rest<br /> ${paperProp}% paper</div>`);
       }
     }
 

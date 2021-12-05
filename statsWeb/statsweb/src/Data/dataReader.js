@@ -3,6 +3,11 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set , get, onValue} from "firebase/database";
 
+const bottomLeftCoord = {latitude: 45.7188, longitute: 21.1956}
+const topRightCoord = {latitude: 45.7856 , longitute: 21.2800}
+
+const packagesTypes = ["Paper", "Plastic", "Rest"]
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBgPOalmsoA8qXh9hc9pC1trlJUnXOkiI8",
@@ -24,6 +29,8 @@ export default class DataReader {
         this.locationPackagesList = []
 
         this.db = getDatabase();
+
+        this.bruteLocationPackageList = []
     }
      
     async getLocationPackagesList () {
@@ -34,13 +41,6 @@ export default class DataReader {
             const childKey = childSnapshot.key;
             const childData = childSnapshot.val()
             const packageList = this.getPackagesOfUser(childKey)
-            const promise1 = new Promise((resolve, reject) => {
-                resolve('Success!');
-              });
-              promise1.then((packageList) => {
-                console.log(packageList);
-                // expected output: "Success!"
-              });
             this.locationPackagesList.push({
                 location: 1,
                 packages: packageList
@@ -51,6 +51,10 @@ export default class DataReader {
           onlyOnce: true
         });
         return this.locationPackagesList
+    }
+
+    getBruteLocationPackagesList () {
+      return this.bruteLocationPackageList
     }
 
     async getPackagesOfUser (userKey) {
@@ -75,12 +79,38 @@ export default class DataReader {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    async populateDatabase (){
-        this.writeUserData("Radu", "radu@yahoo.com", "0749159835", 45.754, 21.259, "Plastic")
-        this.writeUserData("Radu Trial2", "radu@yahoo.com", "0749159835", 45.739, 21.1937, "Paper")
+    populateDatabase (){
+        const latitidudeStepSize = 0.0035
+        const longitudeStepSize = 0.01
+
+        for (let latitudeCoord = bottomLeftCoord.latitude; latitudeCoord < topRightCoord.latitude; latitudeCoord += latitidudeStepSize) {
+          for (let longitudeCoord = bottomLeftCoord.longitute; longitudeCoord < topRightCoord.longitute; longitudeCoord += longitudeStepSize) {
+              const name = "UserAt" + latitudeCoord + longitudeCoord
+              const email = "EmailAt" + latitudeCoord + longitudeCoord
+              
+              let itemPackages = []
+              for (let i=0; i<3; ++i) {
+                const randomPackageIndex = Math.floor(Math.random() * 10) % 3
+                itemPackages.push(packagesTypes[randomPackageIndex])
+              }
+              
+              this.bruteLocationPackageList.push({
+                coordinates: {
+                  latitude: latitudeCoord,
+                  longitude: longitudeCoord
+                },
+                packages: itemPackages
+                })
+
+              /*console.log(name)
+              console.log(email)
+              console.log(latitudeCoord + " --- " + longitudeCoord)
+              console.log(itemPackages)*/
+          }
+        }
     }
 
-    async writeUserData(name, email, phoneNumber, lat, long, itemPackage) {
+    async writeUserData(name, email, phoneNumber, lat, long, itemPackages) {
         const randomUserID = (Math.random() + 1).toString(36).substring(2);
         set(ref(this.db, 'Users/' + randomUserID),{
            email: email,
@@ -91,9 +121,13 @@ export default class DataReader {
                 longitute: long
            }
         });
-        const randomStorageID = (Math.random() + 1).toString(36).substring(2);
-        set(ref(this.db, 'Users/' + randomUserID + '/Storage/' + randomStorageID),{
-            packages: itemPackage
-         });
+
+        for (let i=0; i<3; ++i){
+            const randomStorageID = (Math.random() + 1).toString(36).substring(2);
+            set(ref(this.db, 'Users/' + randomUserID + '/Storage/' + randomStorageID),{
+                packages: itemPackages[i],
+                name: "Product"
+            });
+        }
       }
 }

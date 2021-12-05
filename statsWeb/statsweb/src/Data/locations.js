@@ -23,30 +23,34 @@ const dataValues = [
 ]
 
 export default class LocationComputations {
+    constructor (dataReader){
+        this.dataReader = dataReader
+    }
+
     computeDistance = (locationPackagePair, locationCenter) => {
-        return (locationCenter.coordinates.lat - locationPackagePair.latitude) * (locationCenter.coordinates.lat - locationPackagePair.latitude) +
-        (locationCenter.coordinates.lng - locationPackagePair.longitude) * (locationCenter.coordinates.lng - locationPackagePair.longitude)
+        return 1000 * (locationCenter.coordinates.lat - locationPackagePair.coordinates.latitude ) * (locationCenter.coordinates.lat - locationPackagePair.coordinates.latitude) +
+        1000 *  (locationCenter.coordinates.lng - locationPackagePair.coordinates.longitude ) * (locationCenter.coordinates.lng - locationPackagePair.coordinates.longitude)
     }
     
     calculateProportions = () => {
-        const dataReader = new DataReader
-        const locationsPackagesList = dataReader.getLocationPackagesList()
+        const locationsPackagesList = this.dataReader.getBruteLocationPackagesList()
     
-        for (const locationPackagePair in locationsPackagesList) {
+        for (const locationPackagePair of locationsPackagesList) {
             let minimumDistance = this.computeDistance(locationPackagePair, dataValues[0])
             let minimumIndex = 0
-    
-            for (let i=0; i < dataValues.length(); ++i){
+            
+
+            for (let i=0; i < dataValues.length; ++i){
                 let currentDistance = this.computeDistance(locationPackagePair, dataValues[i])
-    
+                console.log(currentDistance)
                 if (currentDistance < minimumDistance) {
                     minimumIndex = i
                     minimumDistance = currentDistance
                 }
             }
-    
+
             for (const packageType of locationPackagePair.packages) {
-                if (packageType == "Plastic") dataValues[minimumIndex].plasticCount++;
+                if (packageType.includes("Plast") || packageType.includes("plast")) dataValues[minimumIndex].plasticCount++;
                 else if (packageType == "Paper") dataValues[minimumIndex].paperCount++;
                 else dataValues[minimumIndex].restCount++;
             }

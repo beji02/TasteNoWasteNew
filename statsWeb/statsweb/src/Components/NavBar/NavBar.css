@@ -73,6 +73,20 @@
     margin-left: 45vh;
  }
 
+ @media screen and (max-width: 800px) {
+    .nav-menu{
+      margin-bottom: 0vh;
+    }
+
+    .navbar-container{
+      height: 10px;
+    }
+
+    .navbar{
+      max-height: 12vh;
+    }
+}
+
   @media screen and (max-width: 960px) {
     .nav-item:nth-of-type(5) {
       margin-left: 0vh;

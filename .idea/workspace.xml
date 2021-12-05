@@ -121,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638678087504</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Modified application design: SettingsMenu, attempted to make all activities fullscreen (failure due to error).">
+      <created>1638682868232</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638682868232</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +147,7 @@
     <MESSAGE value="merge branch madalin into main" />
     <MESSAGE value="Partially implemented authorities web page." />
     <MESSAGE value="Small modifications to ui." />
-    <option name="LAST_COMMIT_MESSAGE" value="Small modifications to ui." />
+    <MESSAGE value="Modified application design: SettingsMenu, attempted to make all activities fullscreen (failure due to error)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modified application design: SettingsMenu, attempted to make all activities fullscreen (failure due to error)." />
   </component>
 </project>
