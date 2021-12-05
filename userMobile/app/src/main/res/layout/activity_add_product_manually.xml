@@ -112,7 +112,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lvPackage"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:tooltipText="Select product package..."
         app:layout_constraintEnd_toEndOf="@+id/datePicker2"
         app:layout_constraintStart_toStartOf="@+id/datePicker2"
@@ -135,7 +135,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lvCategory"
         android:layout_width="0dp"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/lvPackage"
         app:layout_constraintStart_toStartOf="@+id/lvPackage"
         app:layout_constraintTop_toBottomOf="@+id/lvPackage"
@@ -160,6 +160,7 @@
         android:layout_marginTop="50dp"
         android:layout_weight="1.0"
         android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addBtn2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

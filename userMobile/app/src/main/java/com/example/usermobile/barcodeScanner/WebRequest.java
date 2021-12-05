@@ -1,6 +1,7 @@
 package com.example.usermobile.barcodeScanner;
 
 import android.util.JsonReader;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +39,8 @@ public class WebRequest extends AppCompatActivity {
 
             response = readJsonStream(inStream);
         } catch (IOException ex) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Database access denied. Please try again later.", Toast.LENGTH_LONG);
+            toast.show();
             ex.printStackTrace();
         }
 
