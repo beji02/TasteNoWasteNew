@@ -30,10 +30,10 @@ public class DatabaseStorageManager {
         FirebaseDatabase.getInstance().getReference().child("Users")
                 .child(userId).child("Storage").child(product.getIdCode()).child("quantity").setValue(product.getQuantity()).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(context,
-                        "All data is complete. Thank you for using our app!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(context,
+//                        "All data is complete. Thank you for using our app!", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(context, "Failed to add your location. Please try again!",
+                Toast.makeText(context, "Failed to update your product quantity. Please try again!",
                         Toast.LENGTH_LONG).show();
             }
         });
