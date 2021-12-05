@@ -2,8 +2,6 @@ package com.example.usermobile.ProductAddition;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -149,7 +147,8 @@ public class AddProductManually extends AppCompatActivity {
             productExpirationDate += "-" + dpExpirationDate.getDayOfMonth();
         }
 
-        Product product = new Product(productName, Integer.parseInt(quantity), unitOfMeasure, productExpirationDate, productCategory, productPackage, null);
+        String defaultImgURL = "https://www.graphicsprings.com/filestorage/stencils/af1870a7edc55de23aed98b0d18526a9.png?width=500&height=500";
+        Product product = new Product(productName, Integer.parseInt(quantity), unitOfMeasure, productExpirationDate, productCategory, productPackage, defaultImgURL);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         databaseStorageManager.addProduct(userID, product);
