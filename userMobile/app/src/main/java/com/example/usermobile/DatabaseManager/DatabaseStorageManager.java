@@ -9,6 +9,8 @@ import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
 import com.example.usermobile.Storage.StorageListAdapter;
 import com.example.usermobile.Storage.StorageListView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +38,12 @@ public class DatabaseStorageManager {
                         currProduct.setIdCode(product.getKey());
                         if(currProduct.equals(newProduct)) {
                             found = true;
-                            FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Storage").child(product.getKey()).child("quantity").setValue(currProduct.getQuantity() + newProduct.getQuantity());
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Storage").child(product.getKey()).child("quantity").setValue(currProduct.getQuantity() + newProduct.getQuantity()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(context, "Product added successfully!", Toast.LENGTH_LONG).show();
+                                }
+                            });
                             break;
                         }
                     }
@@ -44,11 +51,9 @@ public class DatabaseStorageManager {
                     if(found == false) {
                         FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Storage").child(userId + newProduct.getIdCode()).setValue(newProduct).addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
-                                Toast.makeText(context,
-                                        "Product added successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Product added successfully!", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(context, "Failed to add Product!",
-                                        Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Failed to add Product!", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
