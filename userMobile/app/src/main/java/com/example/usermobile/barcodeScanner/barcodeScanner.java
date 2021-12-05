@@ -10,8 +10,6 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
@@ -65,11 +63,8 @@ public class barcodeScanner extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_scanner);
 
-
-
         databaseStorageManager = new DatabaseStorageManager(this);
         customNotificationManager = new CustomNotificationManager(this);
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setSelectedItemId(R.id.barcodeScanner_nav);
@@ -93,8 +88,6 @@ public class barcodeScanner extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
         surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
@@ -123,10 +116,10 @@ public class barcodeScanner extends AppCompatActivity {
                 sendToDatabase();
 
                 selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
+                datePicker.setVisibility(View.GONE);
                 surfaceView.setVisibility(View.VISIBLE);
                 expiryDate.setVisibility(View.GONE);
                 selectedDate.setVisibility(View.GONE);
-                datePicker.setVisibility(View.GONE);
             }
         });
 
@@ -136,8 +129,6 @@ public class barcodeScanner extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), AddProductManually.class));
             }
         });
-
-
 
         expiryDate.setVisibility(View.GONE);
         selectedDate.setVisibility(View.GONE);
@@ -231,15 +222,6 @@ public class barcodeScanner extends AppCompatActivity {
     }
 
     void sendToDatabase() {
-        // add jsonProduct to database
-//        Toast.makeText(getApplicationContext(),
-//                jsonProduct.getName() + "\n" +
-//                        jsonProduct.getQuantity() + "\n" +
-//                        jsonProduct.getExpirationDate() + "\n" +
-//                        jsonProduct.getCategory() + "\n" +
-//                        jsonProduct.getPackages() + "\n" +
-//                        jsonProduct.getPhotoLink(), Toast.LENGTH_LONG).show(
-//        );
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseStorageManager.addProduct(userID, jsonProduct);
 
@@ -253,12 +235,10 @@ public class barcodeScanner extends AppCompatActivity {
             date.setSeconds(rightNow.get(Calendar.SECOND));
 
             long time = date.getTime() + 10*1000;
-            //long time = System.currentTimeMillis() + 10 * 1000;
 
-            //Toast.makeText(this, jsonProduct.getName(), Toast.LENGTH_SHORT).show();
             CustomNotification customNotification =
                     new CustomNotification("Produs expirat", jsonProduct.getName() + " expira azi.", time);
-            //Toast.makeText(this, Integer.toString(customNotification.id), Toast.LENGTH_SHORT).show();
+
             customNotificationManager.sendNotification(customNotification);
         } catch (ParseException e) {
             e.printStackTrace();
