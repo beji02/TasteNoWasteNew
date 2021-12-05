@@ -6,6 +6,7 @@
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/drawable/ic_baseline_qr_code_scanner_24.xml" value="0.17239583333333333" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_add_product_manually.xml" value="0.29375" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_additional_data.xml" value="0.29375" />
+        <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_login.xml" value="0.2513586956521739" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_main.xml" value="0.29375" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_product_addition_menu.xml" value="0.29375" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/activity_scanner.xml" value="0.33" />
@@ -16,14 +17,13 @@
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/fragment_second.xml" value="0.29375" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/list_item_b.xml" value="0.14285714285714285" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/product_list_row.xml" value="0.29375" />
-        <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/settings_activity.xml" value="0.33" />
+        <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/layout/settings_activity.xml" value="0.25" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/menu/bottom_navigation.xml" value="0.29375" />
         <entry key="..\:/Projects/TasteNoWasteRaducu/TasteNoWaste/userMobile/app/src/main/res/menu/menu_main.xml" value="0.29375" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/drawable/refs.xml" value="0.21875" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/activity_expiration_date.xml" value="0.3625" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/activity_main.xml" value="0.20260416666666667" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/activity_scanner.xml" value="0.33" />
-        <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/activity_storage_list_view.xml" value="0.3625" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/content_main.xml" value="0.3625" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/fragment_first.xml" value="0.3625" />
         <entry key="..\:/Random Stuff/Faculty &amp; Courses/Unihack 2021/TasteNoWaste/userMobile/app/src/main/res/layout/fragment_second.xml" value="0.3625" />
