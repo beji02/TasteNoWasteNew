@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.usermobile.MainActivity;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.StorageListView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +31,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         setContentView(R.layout.activity_login);
 
 
@@ -50,7 +54,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         FirebaseUser currentUser = loginAuthentication.getCurrentUser();
         if(currentUser != null && currentUser.isEmailVerified()) {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, StorageListView.class));
         }
 
         goToRegister.setOnClickListener(this);
