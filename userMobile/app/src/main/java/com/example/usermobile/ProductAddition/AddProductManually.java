@@ -2,6 +2,8 @@ package com.example.usermobile.ProductAddition;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -74,6 +76,7 @@ public class AddProductManually extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_manually);
+
 
 
         databaseStorageManager = new DatabaseStorageManager(this);

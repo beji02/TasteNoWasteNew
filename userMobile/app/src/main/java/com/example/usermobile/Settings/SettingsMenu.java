@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.usermobile.Authentication.Activities.AdditionalDataActivity;
 import com.example.usermobile.Authentication.Activities.LoginActivity;
 import com.example.usermobile.Notification.CustomNotificationManager;
 import com.example.usermobile.ProductAddition.AddProductManually;
@@ -30,29 +33,37 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class SettingsMenu extends AppCompatActivity {
 
     Switch sw;
     TextView tvNameSettings;
     TextView tvEmailSettings;
-
+    TextView editName;
+    TextView editPhone;
     Button btnLogout;
-
+    Button btnModify;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("Settings");
+
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     String email = snapshot.child("email").getValue(String.class);
                     String name  = snapshot.child("name").getValue(String.class);
+                    String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
                     tvNameSettings.setText(name);
                     tvEmailSettings.setText(email);
+                    editName.setText(name);
+                    editPhone.setText(phoneNumber);
                 }
             }
 
@@ -79,8 +90,11 @@ public class SettingsMenu extends AppCompatActivity {
         tvNameSettings = findViewById(R.id.tvNameSettings);
         tvEmailSettings = findViewById(R.id.tvEmailSettings);
 
+        editName = findViewById(R.id.editName);
+        editPhone = findViewById(R.id.editPhone);
 
         btnLogout = findViewById(R.id.btnLogout);
+        btnModify = findViewById(R.id.btnModify);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +106,42 @@ public class SettingsMenu extends AppCompatActivity {
                 startActivity(i);
 
                 //Toast.makeText(getApplicationContext(), Boolean.toString(CustomNotificationManager.NOTIFY_ON), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnModify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String nameField = editName.getText().toString();
+                String phoneField = editPhone.getText().toString();
+                String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+                FirebaseDatabase.getInstance().getReference().child("Users")
+                        .child(userID).child("name").setValue(nameField).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SettingsMenu.this,
+                                "Name succesfully updated.", Toast.LENGTH_LONG).show();
+                        tvNameSettings.setText(nameField);
+                    } else {
+                        Toast.makeText(SettingsMenu.this, "Failed to modify name.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                try {
+                    TimeUnit.MILLISECONDS.sleep(80);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                FirebaseDatabase.getInstance().getReference().child("Users")
+                        .child(userID).child("phoneNumber").setValue(phoneField).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SettingsMenu.this,
+                                "Phone number succesfully updated.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SettingsMenu.this, "Failed to modify phone number.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 

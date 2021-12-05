@@ -6,6 +6,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -45,6 +47,7 @@ public class StorageListView extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage_list_view);
+
 
         emptyList = (TextView) findViewById(R.id.emptyList);
         storageListView = (ListView) findViewById(R.id.storageList);

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +37,7 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_additional_data);
+
 
         etAdditionalDataCountry = findViewById(R.id.etAdditionalDataCountry);
         etAdditionalDataCounty = findViewById(R.id.etAdditionalDataCounty);
