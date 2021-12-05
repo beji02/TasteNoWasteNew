@@ -44,6 +44,7 @@ public class ProductDialog extends DialogFragment {
         buttonDelete = view.findViewById(R.id.buttonDelete);
         buttonCancel = view.findViewById(R.id.buttonCancel);
 
+
         buttonCancel.setOnClickListener(v -> {
             Objects.requireNonNull(getDialog()).dismiss();
         });
@@ -73,6 +74,9 @@ public class ProductDialog extends DialogFragment {
             }
         });
 
+        String package_str = "Package: "+product.getPackages();
+        viewHolder.txtPackage.setText(package_str);
+
         return view;
     }
 
@@ -80,6 +84,7 @@ public class ProductDialog extends DialogFragment {
     private ViewHolder setInformation(View view) {
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.txtName = (TextView) view.findViewById(R.id.nameDialog);
+        viewHolder.txtPackage = (TextView) view.findViewById(R.id.packagesDialog);
         viewHolder.txtQuantityValue = (EditText) view.findViewById(R.id.quantityEditDialog);
         viewHolder.txtQuantityUnitOfMeasure = (TextView) view.findViewById(R.id.quantityUnitOfMeasureDialog);
         viewHolder.txtDate = (TextView) view.findViewById(R.id.expirationDateDialog);
@@ -119,6 +124,7 @@ public class ProductDialog extends DialogFragment {
     }
 
     private static class ViewHolder {
+        TextView txtPackage;
         TextView txtName;
         EditText txtQuantityValue;
         TextView txtQuantityUnitOfMeasure;

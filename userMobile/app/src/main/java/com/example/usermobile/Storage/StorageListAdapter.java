@@ -51,6 +51,7 @@ public class StorageListAdapter extends ArrayAdapter<Product> implements View.On
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.product_list_row, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.txtPackage = (TextView) convertView.findViewById(R.id.packagesDialog);
             viewHolder.txtQuantity = (TextView) convertView.findViewById(R.id.quantity);
             viewHolder.txtDate = (TextView) convertView.findViewById(R.id.expirationDate);
             viewHolder.ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
@@ -94,6 +95,7 @@ public class StorageListAdapter extends ArrayAdapter<Product> implements View.On
     }
 
     private static class ViewHolder {
+        TextView txtPackage;
         TextView txtName;
         TextView txtQuantity;
         TextView txtDate;
