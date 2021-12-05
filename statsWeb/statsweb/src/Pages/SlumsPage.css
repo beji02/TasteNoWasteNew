@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
+.App {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.openModalBtn {
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  border-color: transparent;
+  padding: 3vh 8vh;
+  transition: all 0.3s ease-out;
+  cursor: pointer;
+  font-size: 2.5vh;
+  z-index: 999;
+  position: relative;
+}
+
+.MainComponent{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.Slums{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.openModalBtn:hover{
+  border-color: black;
+  transition: all 0.6s ease-out;
+  background: rgba(255, 255, 255, 0.377);
+  color: #242424;
+  transition: 250ms;
+  
+} 
+.Buttons{
+  position: relative;
+  margin-left: 3vh;
+  margin-top: -1vh;
+  display: flex;
+  flex-direction: row;
+}
