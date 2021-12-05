@@ -5,19 +5,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
-import com.example.usermobile.Storage.StorageListAdapter;
-import com.example.usermobile.Storage.StorageListView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Objects;
 
 public class DatabaseStorageManager {
     Context context;
@@ -31,12 +25,12 @@ public class DatabaseStorageManager {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean found = false;
                 if (snapshot.exists()) {
-                    boolean found = false;
                     for (DataSnapshot product : snapshot.getChildren()) {
                         Product currProduct = product.getValue(Product.class);
                         currProduct.setIdCode(product.getKey());
-                        if(currProduct.equals(newProduct)) {
+                        if (currProduct.equals(newProduct)) {
                             found = true;
                             FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Storage").child(product.getKey()).child("quantity").setValue(currProduct.getQuantity() + newProduct.getQuantity()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -47,6 +41,7 @@ public class DatabaseStorageManager {
                             break;
                         }
                     }
+                }
 
                     if(found == false) {
                         FirebaseDatabase.getInstance().getReference().child("Users").child(userId).child("Storage").child(userId + newProduct.getIdCode()).setValue(newProduct).addOnCompleteListener(task -> {
@@ -58,7 +53,6 @@ public class DatabaseStorageManager {
                         });
                     }
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
