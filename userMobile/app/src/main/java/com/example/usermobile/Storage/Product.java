@@ -109,4 +109,17 @@ public class Product {
     public void setPhotoLink(String photoLink) {
         this.photoLink = photoLink;
     }
+
+    public boolean equals(Object other) {
+        if(other == this) {
+            return true;
+        }
+
+        if(other instanceof Product) {
+            Product that = (Product) other;
+            return (this.name.equals(that.name) && this.name.equals(that.name) && this.category.equals(that.category) && this.getUnitOfMeasure().equals(that.getUnitOfMeasure()));
+        }
+
+        return false;
+    }
 }
