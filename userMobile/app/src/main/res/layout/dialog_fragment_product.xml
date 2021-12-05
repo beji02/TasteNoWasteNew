@@ -25,21 +25,65 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/quantityDialog"
+    <LinearLayout
+        android:id="@+id/quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/expirationDateDialog"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/expirationDateDialog">
+
+        <TextView
+            android:id="@+id/quantityLabelDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expirationDateDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Quantity: "
+            android:fontFamily="@font/sniglet"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/quantityEditDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expirationDateDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/sniglet"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/quantityUnitOfMeasureDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expirationDateDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/sniglet"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/categoryDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantity"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/sniglet"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/quantityDialog"
+        android:layout_below="@+id/categoryDialog"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:gravity="center">

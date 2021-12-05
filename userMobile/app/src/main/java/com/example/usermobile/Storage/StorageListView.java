@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.Authentication.Util.User;
 import com.example.usermobile.ProductAddition.ProductAdditionMenu;
@@ -83,7 +85,7 @@ public class StorageListView extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.productAdditionMenu:
+                    case R.id.barcodeScanner_nav:
                         startActivity(new Intent(getApplicationContext(), barcodeScanner.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -137,7 +139,6 @@ public class StorageListView extends AppCompatActivity {
         if(storageListAdapter != null) storageListAdapter.clear();
         productStorage = new Storage();
 
-
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -153,7 +154,6 @@ public class StorageListView extends AppCompatActivity {
                     storageListAdapter = new StorageListAdapter(productList, R.layout.product_list_row, StorageListView.this );
                     storageListView.setAdapter(storageListAdapter);
                 }
-
             }
 
             @Override

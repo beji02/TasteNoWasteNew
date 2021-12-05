@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.SparseArray;
+import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -14,20 +15,30 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
+import com.example.usermobile.Notification.CustomNotification;
+import com.example.usermobile.Notification.CustomNotificationManager;
 import com.example.usermobile.ProductAddition.AddProductManually;
 import com.example.usermobile.R;
+import com.example.usermobile.Settings.SettingsMenu;
 import com.example.usermobile.Storage.Product;
+import com.example.usermobile.Storage.StorageListView;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class barcodeScanner extends AppCompatActivity {
@@ -41,8 +52,9 @@ public class barcodeScanner extends AppCompatActivity {
     private WebRequest webRequest;
     private Product jsonProduct;
     private DatePicker datePicker;
-    private Button cancelBtn, okBtn, manualBtn;
+    private Button okBtn, manualBtn;
     private DatabaseStorageManager databaseStorageManager;
+    private CustomNotificationManager customNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +63,35 @@ public class barcodeScanner extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         setContentView(R.layout.activity_scanner);
 
+
         databaseStorageManager = new DatabaseStorageManager(this);
+        customNotificationManager = new CustomNotificationManager(this);
+
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        bottomNavigationView.setSelectedItemId(R.id.barcodeScanner_nav);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.storageListView:
+                        startActivity(new Intent(getApplicationContext(), StorageListView.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settingsMenu:
+                        startActivity(new Intent(getApplicationContext(), SettingsMenu.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.barcodeScanner_nav:
+                        return true;
+                }
+
+                return true;
+            }
+        });
+
+
 
         surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
@@ -60,7 +100,6 @@ public class barcodeScanner extends AppCompatActivity {
         datePicker = (DatePicker) findViewById(R.id.datePicker);
         expiryDate = findViewById(R.id.expiry_date);
         selectedDate = findViewById(R.id.selected_Date);
-        cancelBtn = (Button) findViewById(R.id.cancelBtn);
         manualBtn = (Button) findViewById(R.id.manualBtn);
         okBtn = (Button) findViewById(R.id.okBtn);
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,12 +134,7 @@ public class barcodeScanner extends AppCompatActivity {
             }
         });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
 
         expiryDate.setVisibility(View.GONE);
         selectedDate.setVisibility(View.GONE);
@@ -205,6 +239,27 @@ public class barcodeScanner extends AppCompatActivity {
 //        );
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         databaseStorageManager.addProduct(userID, jsonProduct);
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(jsonProduct.getExpirationDate());
+            Calendar rightNow = Calendar.getInstance();
+
+            date.setHours(rightNow.get(Calendar.HOUR_OF_DAY));
+            date.setMinutes(rightNow.get(Calendar.MINUTE));
+            date.setSeconds(rightNow.get(Calendar.SECOND));
+
+            long time = date.getTime() + 10*1000;
+            //long time = System.currentTimeMillis() + 10 * 1000;
+
+            //Toast.makeText(this, jsonProduct.getName(), Toast.LENGTH_SHORT).show();
+            CustomNotification customNotification =
+                    new CustomNotification("Produs expirat", jsonProduct.getName() + " expira azi.", time);
+            //Toast.makeText(this, Integer.toString(customNotification.id), Toast.LENGTH_SHORT).show();
+            customNotificationManager.sendNotification(customNotification);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

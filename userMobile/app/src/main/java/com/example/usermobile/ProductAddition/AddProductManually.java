@@ -13,10 +13,16 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
+import com.example.usermobile.Notification.CustomNotification;
+import com.example.usermobile.Notification.CustomNotificationManager;
 import com.example.usermobile.R;
 import com.example.usermobile.Storage.Product;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class AddProductManually extends AppCompatActivity {
@@ -26,12 +32,9 @@ public class AddProductManually extends AppCompatActivity {
             O clasa Product cu atributele (Id, Nume, Quantity, expirationDate, ambalaje cu dropdown, categorii cu dropdown)
             StorageDatabase - clasa care se ocupa cu store User's Storage in firebase database:
                 functions: storeProduct(idUser, Product), deleteProduct(idUser, idProduct)
-
-
          */
-    //private TextView tvNume, tvQuantity, tvExpirationDate, tvPackage, tvCategory;
-    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Carton", "Metal", "Unknown"};
-    //String[] itemsCategory = {"Fruits", "Vegetables", "Cereals", "Unknown"};
+
+    String[] itemsPackage = {"Paper", "Glass", "Plastic", "Cardboard", "Metal", "Unknown"};
     String[] itemsCategory = {
             "Snacks",
             "Beverages",
@@ -46,10 +49,16 @@ public class AddProductManually extends AppCompatActivity {
             "Condiments",
             "Fishes",
             "Wines",
-            "Pastas"};
-    String productName, productQuantity, productExpirationDate, productPackage, productCategory;
+            "Pastas",
+            "Unknown"};
+    String productName;
+    String productPackage;
+    String productCategory;
 
     DatabaseStorageManager databaseStorageManager;
+
+    private CustomNotificationManager customNotificationManager;
+
 
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter<String> arrayAdapter;
@@ -61,13 +70,14 @@ public class AddProductManually extends AppCompatActivity {
     private ListView lvPackage, lvCategory;
     private Button bAdd, bCancel;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product_manually);
 
+
         databaseStorageManager = new DatabaseStorageManager(this);
+        customNotificationManager = new CustomNotificationManager(this);
 
         autoCompleteTextView = findViewById(R.id.auto_complete_txt);
         arrayAdapter = new ArrayAdapter<String>(this, R.layout.list_item_b, itemsPackage);
@@ -91,7 +101,6 @@ public class AddProductManually extends AppCompatActivity {
             }
         });
 
-
         etNume = findViewById(R.id.etProductName);
         etQuantity = findViewById(R.id.etQuantity);
         dpExpirationDate = findViewById(R.id.datePicker2);
@@ -114,10 +123,17 @@ public class AddProductManually extends AppCompatActivity {
         });
     }
 
-
     void sendToDatabase() {
         productName = etNume.getText().toString();
-        int intProductQuantity = Integer.parseInt(etQuantity.getText().toString());
+        String[] productQuantity;
+        String quantity = "0", unitOfMeasure = "";
+
+        productQuantity = etQuantity.getText().toString().split("\\s* \\s*");
+        quantity = productQuantity[0];
+        if (productQuantity.length > 1) {
+            unitOfMeasure = productQuantity[1];
+        }
+
         String productExpirationDate = dpExpirationDate.getYear() + "-";
         if ((dpExpirationDate.getMonth() + 1) < 10) {
             productExpirationDate += "0" + (dpExpirationDate.getMonth() + 1);
@@ -130,11 +146,32 @@ public class AddProductManually extends AppCompatActivity {
             productExpirationDate += "-" + dpExpirationDate.getDayOfMonth();
         }
 
-        Product product = new Product(productName, intProductQuantity, productExpirationDate, productCategory, productPackage, null);
+        Product product = new Product(productName, Integer.parseInt(quantity), unitOfMeasure, productExpirationDate, productCategory, productPackage, null);
         String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         databaseStorageManager.addProduct(userID, product);
         // add product to database
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = sdf.parse(product.getExpirationDate());
+            Calendar rightNow = Calendar.getInstance();
+
+            date.setHours(rightNow.get(Calendar.HOUR_OF_DAY));
+            date.setMinutes(rightNow.get(Calendar.MINUTE));
+            date.setSeconds(rightNow.get(Calendar.SECOND));
+
+            long time = date.getTime() + 10*1000;
+            //long time = System.currentTimeMillis() + 10 * 1000;
+
+            //Toast.makeText(this, jsonProduct.getName(), Toast.LENGTH_SHORT).show();
+            CustomNotification customNotification =
+                    new CustomNotification("Produs expirat", product.getName() + " expira azi.", time);
+            //Toast.makeText(this, Integer.toString(customNotification.id), Toast.LENGTH_SHORT).show();
+            customNotificationManager.sendNotification(customNotification);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 }

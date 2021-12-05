@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CustomNotificationManager extends AppCompatActivity {
     static String CHANNEL_ID = "channel 2";
+    public static boolean NOTIFY_ON = true;
 
     Context context;
     public CustomNotificationManager(Context context) {
@@ -35,12 +36,14 @@ public class CustomNotificationManager extends AppCompatActivity {
     }
 
     public void sendNotification(CustomNotification notification) {
+        if (NOTIFY_ON == false)
+            return;
         Intent intent = new Intent(context, NotificationBroadcast.class);
         intent.putExtra("id", notification.id);
         intent.putExtra("title", notification.title);
         intent.putExtra("text", notification.text);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, notification.id, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, notification.timeToRing, pendingIntent);
