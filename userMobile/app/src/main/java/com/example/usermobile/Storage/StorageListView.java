@@ -184,6 +184,7 @@ public class StorageListView extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .child("Storage").child(product.getIdCode()).removeValue();
+        populateProductList();
 
         Toast.makeText(this, "Product successfully deleted", Toast.LENGTH_SHORT).show();
     }
