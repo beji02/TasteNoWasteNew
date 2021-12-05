@@ -19,19 +19,24 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:fontFamily="@font/sniglet"
             android:text="Products"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="34sp" />
+            android:textSize="38sp"
+            android:textStyle="bold"
+            />
 
         <EditText
             android:id="@+id/etSearchList"
             android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/sniglet"
             android:hint="Search Product"
-            android:layout_marginTop="10dp"
-            android:textSize="25dp"
-            android:layout_height="wrap_content" />
+            android:textSize="25dp" />
 
     </LinearLayout>
 
@@ -68,7 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="0dp"
         android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
+        android:background="#FF9800"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
