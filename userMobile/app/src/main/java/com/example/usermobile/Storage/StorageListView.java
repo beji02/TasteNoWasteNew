@@ -2,16 +2,21 @@ package com.example.usermobile.Storage;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.example.usermobile.Authentication.Util.User;
 import com.example.usermobile.ProductAddition.ProductAdditionMenu;
 import com.example.usermobile.R;
 import com.example.usermobile.Settings.SettingsMenu;
@@ -23,10 +28,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 
@@ -35,6 +42,8 @@ public class StorageListView extends AppCompatActivity {
     private Storage productStorage;
     private ArrayList<Product> productList;
     StorageListAdapter storageListAdapter;
+
+    EditText etSearchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +56,8 @@ public class StorageListView extends AppCompatActivity {
 
         storageListAdapter = new StorageListAdapter(productList, R.layout.product_list_row, this );
         storageListView.setAdapter(storageListAdapter);
+
+        etSearchList = findViewById(R.id.etSearchList);
 
         storageListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -81,9 +92,49 @@ public class StorageListView extends AppCompatActivity {
                 return true;
             }
         });
+
+        etSearchList.addTextChangedListener(new TextWatcher()
+        {
+
+            public void afterTextChanged(Editable s)
+            {
+                // Abstract Method of TextWatcher Interface.
+
+            }
+            public void beforeTextChanged(CharSequence s,
+                                          int start, int count, int after)
+            {
+
+                // Abstract Method of TextWatcher Interface.
+
+            }
+            public void onTextChanged(CharSequence s,
+                                      int start, int before, int count)
+            {
+                String text = etSearchList.getText().toString().trim().toLowerCase(Locale.ROOT);
+                int textLength = text.length();
+
+                ArrayList<Product> tempStorage = new ArrayList<>();
+
+                for (int i = 0; i < productList.size(); i++)
+                {
+                    if (textLength <= productList.get(i).getName().length())
+                    {
+                        if(productList.get(i).getName().contains(etSearchList.getText().toString()))
+                        {
+                            tempStorage.add(productList.get(i));
+                        }
+                    }
+                }
+
+                storageListAdapter = new StorageListAdapter(tempStorage, R.layout.product_list_row, StorageListView.this );
+                storageListView.setAdapter(storageListAdapter);
+            }
+        });
     }
 
-    private void populateProductList () {
+    private void populateProductList() {
+        if(storageListAdapter != null) storageListAdapter.clear();
         productStorage = new Storage();
 
 
@@ -98,8 +149,9 @@ public class StorageListView extends AppCompatActivity {
                           productStorage.addProduct(currProduct);
                       }
                       productList = productStorage.getProductList();
-                      updateProductStorage(productStorage);
-                      storageListAdapter.notifyDataSetChanged();
+
+                    storageListAdapter = new StorageListAdapter(productList, R.layout.product_list_row, StorageListView.this );
+                    storageListView.setAdapter(storageListAdapter);
                 }
 
             }
@@ -112,6 +164,8 @@ public class StorageListView extends AppCompatActivity {
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid())
                 .child("Storage").addValueEventListener(valueEventListener);
+
+
 
         productList = productStorage.getProductList();
         sortProductListAscending();
