@@ -91,7 +91,7 @@ public class barcodeScanner extends AppCompatActivity {
 
         surfaceView = findViewById(R.id.surface_view);
         barcodeText = findViewById(R.id.barcode_text);
-        barcodeText.setVisibility(View.GONE);
+        barcodeText.setVisibility(View.VISIBLE);
 
         datePicker = (DatePicker) findViewById(R.id.datePicker);
         expiryDate = findViewById(R.id.expiry_date);
@@ -115,9 +115,11 @@ public class barcodeScanner extends AppCompatActivity {
                 jsonProduct.setExpirationDate(pickExpiryDate);
                 sendToDatabase();
 
-                selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
+//                selectedDate.setText("Selected date: " + datePicker.getDayOfMonth() + "/" + (datePicker.getMonth() + 1) + "/" + datePicker.getYear());
+                barcodeText.setText("Scan something...");
                 datePicker.setVisibility(View.GONE);
                 surfaceView.setVisibility(View.VISIBLE);
+                barcodeText.setVisibility(View.VISIBLE);
                 expiryDate.setVisibility(View.GONE);
                 selectedDate.setVisibility(View.GONE);
             }
@@ -133,7 +135,7 @@ public class barcodeScanner extends AppCompatActivity {
         expiryDate.setVisibility(View.GONE);
         selectedDate.setVisibility(View.GONE);
         datePicker.setVisibility(View.GONE);
-//        barcodeText.setVisibility(View.GONE);
+        barcodeText.setVisibility(View.GONE);
         initialiseDetectorsAndSources();
     }
 
@@ -192,7 +194,7 @@ public class barcodeScanner extends AppCompatActivity {
 //                            toast.show();
                             if (jsonProduct.getName() != "") {
                                 surfaceView.setVisibility(View.GONE);
-                                barcodeText.setText(barcodeData);
+                                barcodeText.setVisibility(View.GONE);
 
                                 expiryDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
@@ -207,7 +209,7 @@ public class barcodeScanner extends AppCompatActivity {
 //                            toast.show();
                             if (jsonProduct.getName() != "") {
                                 surfaceView.setVisibility(View.GONE);
-                                barcodeText.setText(barcodeData);
+                                barcodeText.setVisibility(View.GONE);
 
                                 expiryDate.setVisibility(View.VISIBLE);
                                 datePicker.setVisibility(View.VISIBLE);
