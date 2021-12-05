@@ -3,6 +3,8 @@ package com.example.usermobile.Storage;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
+import com.example.usermobile.DatabaseManager.DatabaseStorageManager;
 import com.example.usermobile.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -23,6 +27,8 @@ public class ProductDialog extends DialogFragment {
     Product product;
     StorageListView storageParent;
 
+    private DatabaseStorageManager databaseStorageManager;
+
     public ProductDialog(final Product product, StorageListView storageParent) {
         this.product = product;
         this.storageParent = storageParent;
@@ -31,24 +37,47 @@ public class ProductDialog extends DialogFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_product, container);
-        setInformation(view);
+        ViewHolder viewHolder = setInformation(view);
+
+        databaseStorageManager = new DatabaseStorageManager(getContext());
 
         buttonDelete = view.findViewById(R.id.buttonDelete);
         buttonCancel = view.findViewById(R.id.buttonCancel);
 
-        buttonCancel.setOnClickListener(v -> Objects.requireNonNull(getDialog()).dismiss());
-
+        buttonCancel.setOnClickListener(v -> {
+            Objects.requireNonNull(getDialog()).dismiss();
+        });
 
         buttonDelete.setOnClickListener(v -> {
             storageParent.deleteProduct(product);
             Objects.requireNonNull(getDialog()).dismiss();
         });
 
+        viewHolder.txtQuantityValue.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+                // Abstract Method of TextWatcher Interface.
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Abstract Method of TextWatcher Interface.
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String quantity = viewHolder.txtQuantityValue.getText().toString();
+                if (!quantity.isEmpty()) {
+                    product.setQuantity(Integer.parseInt(quantity));
+                } else {
+                    product.setQuantity(Integer.parseInt("0"));
+                }
+                sendToDatabase(product);
+            }
+        });
+
         return view;
     }
 
     @SuppressLint("SetTextI18n")
-    private void setInformation(View view) {
+    private ViewHolder setInformation(View view) {
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.txtName = (TextView) view.findViewById(R.id.nameDialog);
         viewHolder.txtQuantityValue = (EditText) view.findViewById(R.id.quantityEditDialog);
@@ -80,6 +109,13 @@ public class ProductDialog extends DialogFragment {
             viewHolder.txtDate.setTextColor(Color.parseColor("#55FF00"));
             viewHolder.txtDate.setText("Expires on " + product.getExpirationDate() + ".");
         }
+
+        return viewHolder;
+    }
+
+    void sendToDatabase(Product product) {
+        String userID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        databaseStorageManager.modifyProductQuantity(userID, product);
     }
 
     private static class ViewHolder {
