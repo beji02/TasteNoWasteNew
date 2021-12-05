@@ -7,10 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.DialogFragment;
-
 
 import com.example.usermobile.R;
 
@@ -46,7 +44,6 @@ public class ProductDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 getDialog().dismiss();
-                System.out.println(product.getName());
             }
         });
 
@@ -56,12 +53,10 @@ public class ProductDialog extends DialogFragment {
             public void onClick(View v) {
                 storageParent.deleteProduct(product);
                 getDialog().dismiss();
-
             }
         });
 
         return view;
-
     }
 
     private void setInformation (View view) {
@@ -72,7 +67,12 @@ public class ProductDialog extends DialogFragment {
 
         viewHolder.txtName.setText(product.getName());
         viewHolder.txtDate.setText("Expiration date: " + product.getExpirationDate().toString());
-        viewHolder.txtQuantity.setText("Quantity: " + Integer.toString(product.getQuantity()));
+
+        if (!product.getUnitOfMeasure().isEmpty()) {
+            viewHolder.txtQuantity.setText("Quantity: " + Integer.toString(product.getQuantity()) + " " + product.getUnitOfMeasure());
+        } else {
+            viewHolder.txtQuantity.setText("Quantity: " + Integer.toString(product.getQuantity()));
+        }
 
         long dateDifference = ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.parse(product.getExpirationDate()));
         if (dateDifference < 0) {
