@@ -51,6 +51,11 @@ public class SettingsMenu extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -60,8 +65,8 @@ public class SettingsMenu extends AppCompatActivity {
                     String phoneNumber = snapshot.child("phoneNumber").getValue(String.class);
                     tvNameSettings.setText(name);
                     tvEmailSettings.setText(email);
-                    editName.setText(name);
-                    editPhone.setText(phoneNumber);
+                    editName.setHint(name);
+                    editPhone.setHint(phoneNumber);
                 }
             }
 

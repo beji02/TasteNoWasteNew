@@ -10,8 +10,9 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.usermobile.MainActivity;
 import com.example.usermobile.R;
+import com.example.usermobile.Storage.Storage;
+import com.example.usermobile.Storage.StorageListView;
 
 public class NotificationBroadcast  extends BroadcastReceiver {
     @Override
@@ -24,7 +25,7 @@ public class NotificationBroadcast  extends BroadcastReceiver {
     }
 
     private void sendNotification(Context context, int id, String title, String text) {
-        Intent resultIntent = new Intent(context, MainActivity.class);
+        Intent resultIntent = new Intent(context, StorageListView.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)

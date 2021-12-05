@@ -20,14 +20,11 @@
         android:theme="@style/Theme.UserMobile">
         <activity
             android:name=".ProductAddition.AddProductManually"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Settings.SettingsMenu"
             android:exported="false"
-            android:label="@string/title_activity_settings_menu"
-           />
-
+            android:label="@string/title_activity_settings_menu" />
         <activity
             android:name=".ProductAddition.ProductAdditionMenu"
             android:exported="false" />
@@ -36,7 +33,6 @@
             android:exported="false"
             android:label="@string/title_activity_storage_list_view"
             android:theme="@style/Theme.UserMobile.NoActionBar" />
-
         <activity
             android:name=".Authentication.Activities.ForgotPasswordActivity"
             android:exported="false" />
@@ -46,7 +42,6 @@
         <activity
             android:name=".Authentication.Activities.RegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".Authentication.Activities.LoginActivity"
             android:exported="true"
@@ -57,25 +52,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".barcodeScanner.barcodeScanner"
-            android:exported="true">
+            android:exported="true"></activity>
 
-        </activity>
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.UserMobile.NoActionBar"></activity>
 
         <receiver
             android:name=".Notification.NotificationBroadcast"
