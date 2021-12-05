@@ -135,7 +135,7 @@ public class barcodeScanner extends AppCompatActivity {
         expiryDate.setVisibility(View.GONE);
         selectedDate.setVisibility(View.GONE);
         datePicker.setVisibility(View.GONE);
-        barcodeText.setVisibility(View.GONE);
+        barcodeText.setVisibility(View.VISIBLE);
         initialiseDetectorsAndSources();
     }
 
