@@ -5,20 +5,19 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.usermobile.Authentication.Util.Address;
 import com.example.usermobile.Authentication.Util.Location;
-import com.example.usermobile.MainActivity;
 import com.example.usermobile.R;
+import com.example.usermobile.Storage.StorageListView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,6 +35,12 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
         setContentView(R.layout.activity_additional_data);
 
 
@@ -58,7 +63,7 @@ public class AdditionalDataActivity extends AppCompatActivity implements View.On
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnAdditionalDataSkip:
-                startActivity(new Intent(AdditionalDataActivity.this, MainActivity.class));
+                startActivity(new Intent(AdditionalDataActivity.this, StorageListView.class));
                 break;
             case R.id.btnAdditionalDataSave:
                 updateData();
