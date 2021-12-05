@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 public class WebRequest extends AppCompatActivity {
 
@@ -104,12 +105,21 @@ public class WebRequest extends AppCompatActivity {
             unitOfMeasure = productQuantity[1];
         }
 
+        String item = packages[0];
+        String[] itemsPackage = {"paper", "glass", "plastic", "cardboard", "metal", "unknown"};
+
+        for(int i = 0; i < itemsPackage.length; i++) {
+            if(item.toLowerCase(Locale.ROOT).contains(itemsPackage[i])) {
+                item = itemsPackage[i];
+            }
+        }
+
         Product product = new Product(productName,
                 Integer.parseInt(quantity),
                 unitOfMeasure,
                 "",
                 StringUtils.capitalize(categories[0].replace('-', ' ')),
-                packages[0],
+                item,
                 productImageUrl);
         return product;
     }
