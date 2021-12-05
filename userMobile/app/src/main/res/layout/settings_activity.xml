@@ -5,6 +5,31 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+    <LinearLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="#FF7800"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/doar_asa2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/sniglet"
+            android:text="Settings"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="38sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <Switch
         android:id="@+id/swNotify"
@@ -57,16 +82,16 @@
         app:layout_constraintStart_toStartOf="@+id/tvNameSettings"
         app:layout_constraintTop_toBottomOf="@+id/tvNameSettings" />
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="66dp"
         android:layout_height="69dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overlay"
         app:srcCompat="@drawable/ic_baseline_account_circle_24" />
-
 
     <Button
         android:id="@+id/btnLogout"
