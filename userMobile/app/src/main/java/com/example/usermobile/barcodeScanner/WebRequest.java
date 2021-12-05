@@ -99,7 +99,9 @@ public class WebRequest extends AppCompatActivity {
         }
         reader.endObject();
 
-        quantity = productQuantity[0];
+        if (!productQuantity[0].isEmpty()) {
+            quantity = productQuantity[0];
+        }
         if (productQuantity.length > 1) {
             unitOfMeasure = productQuantity[1];
         }
