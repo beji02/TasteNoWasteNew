@@ -79,7 +79,7 @@ public class WebRequest extends AppCompatActivity {
         String[] packages = new String[0];
         String productImageUrl = "", productName = "";
         String[] productQuantity = new String[0];
-        String quantity = "0", unitOfMeasure = "";
+        String quantity = "1", unitOfMeasure = "";
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -100,10 +100,11 @@ public class WebRequest extends AppCompatActivity {
         }
         reader.endObject();
 
-        if (!productQuantity[0].isEmpty()) {
+
+        if (productQuantity != null && productQuantity.length != 0 && !productQuantity[0].isEmpty()) {
             quantity = productQuantity[0];
         }
-        if (productQuantity.length > 1) {
+        if (productQuantity != null && productQuantity.length > 1) {
             unitOfMeasure = productQuantity[1];
         }
 

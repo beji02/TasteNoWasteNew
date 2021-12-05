@@ -1,10 +1,14 @@
 package com.example.usermobile.barcodeScanner;
 
+import static com.example.usermobile.Notification.CustomNotificationManager.NOTIFY_ON;
+
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.util.SparseArray;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
@@ -65,6 +69,11 @@ public class barcodeScanner extends AppCompatActivity {
 
         databaseStorageManager = new DatabaseStorageManager(this);
         customNotificationManager = new CustomNotificationManager(this);
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this /* Activity context */);
+        boolean notify_saved = sharedPreferences.getBoolean("notifyME", true);
+        NOTIFY_ON = notify_saved;
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setSelectedItemId(R.id.barcodeScanner_nav);
